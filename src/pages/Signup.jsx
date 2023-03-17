@@ -35,9 +35,9 @@ function Signup() {
 
   const submitButtonHandler = async (e) => {
     e.preventDefault();
-    if (Number(user.password) === Number(user.checkpassword)) {
+    if (user.password === user.checkpassword) {
       console.log(user);
-      await axios.post("http://localhost:4000/user", user);
+      await api.post("/user", user);
       navigate("/login");
     } else {
       alert("비밀번호가 일치하지 않습니다.");

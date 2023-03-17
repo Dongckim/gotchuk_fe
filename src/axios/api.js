@@ -4,7 +4,7 @@ import axios from "axios";
 // https://axios-http.com/docs/req_config
 // 위 주소를 참고해주세요!
 const api = axios.create({
-	baseURL: "http://localhost:4000",
+	baseURL: "http://localhost:4001",
 });
 
 api.interceptors.request.use(
