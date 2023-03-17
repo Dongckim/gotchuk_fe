@@ -1,7 +1,6 @@
-import React from "react";
 import styled from "styled-components";
 
-export const MainStBox = styled.div`
+const MainStBox = styled.div`
     background-color: rgb(106, 185, 106);
     min-width: 800px;
     max-width: 1200px;
@@ -12,4 +11,4 @@ export const MainStBox = styled.div`
 //     return <MainStBox {...stbox}>{children}</MainStBox>;
 //   }
 
-//   export default MainStBox
+   export default MainStBox
