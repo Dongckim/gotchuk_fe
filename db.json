@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "user": [
     {
       "id": "asdasd",
@@ -90,4 +91,38 @@
       "body": "\"It's true I don't know much about the players here, but they definitely know who I am.\"- Zlatan Ibrahimovic"
     }
   ]
+=======
+"gameInfo" :
+   {
+    "gameId": 2,
+   "teamA": "team1",
+   "teamB": "team2",
+   "scoreA": 2,
+   "scoreB": 1
+   },
+
+"commentList" : 
+    [{
+   "commentId": 1,
+   "body": "내용1",
+   "username": "아이디1",
+   "createdAt": "2023-03-17T12:52:06.729608",
+   "modifiedAt": "2023-04-01T12:52:06.729608"
+   },
+   {
+   "commentId": 2,
+   "body": "내용2",
+   "username": "아이디2",
+   "createdAt": "2023-03-17T12:55:06.729608",
+   "modifiedAt": "2023-04-01T12:57:06.729608"
+   },
+   {
+    "commentId": 3,
+    "body": "내용3",
+    "username": "아이디3",
+    "createdAt": "2023-03-17T12:55:06.729608",
+    "modifiedAt": "2023-04-01T12:57:06.729608"
+    }
+]
+>>>>>>> dongckim
 }
