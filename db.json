@@ -46,48 +46,36 @@
       "checkpassword": "aaaa"
     }
   ],
-  "contacts": [
-    {
-      "id": 1,
-      "name": "양인서"
-    },
-    {
-      "id": 2,
-      "name": "윤재혁"
-    },
-    {
-      "id": 3,
-      "name": "태윤희"
-    },
-    {
-      "id": 4,
-      "name": "김동찬"
-    },
-    {
-      "id": 5,
-      "name": "홍혜수"
+"gameInfo" :
+   {
+    "gameId": 2,
+   "teamA": "team1",
+   "teamB": "team2",
+   "scoreA": 2,
+   "scoreB": 1
+   },
+
+"commentList" : 
+    [{
+   "commentId": 1,
+   "body": "내용1",
+   "username": "아이디1",
+   "createdAt": "2023-03-17T12:52:06.729608",
+   "modifiedAt": "2023-04-01T12:52:06.729608"
+   },
+   {
+   "commentId": 2,
+   "body": "내용2",
+   "username": "아이디2",
+   "createdAt": "2023-03-17T12:55:06.729608",
+   "modifiedAt": "2023-04-01T12:57:06.729608"
+   },
+   {
+    "commentId": 3,
+    "body": "내용3",
+    "username": "아이디3",
+    "createdAt": "2023-03-17T12:55:06.729608",
+    "modifiedAt": "2023-04-01T12:57:06.729608"
     }
-  ],
-  "comments": [
-    {
-      "id": 4,
-      "body": "Mark Juckerburg, the greatest pioneer in 21th century."
-    },
-    {
-      "id": 5,
-      "body": "Perhaps the feelings that we experience when we are in love represent a normal state. Being in love shows a person who he should be."
-    },
-    {
-      "id": "89327d4d-c773-b331-42de-3f370234f6fd",
-      "body": "Remove 'THE', Just 'Facebook',  its more cool."
-    },
-    {
-      "id": "2054607c-72d1-6dc9-812b-682f612b7def",
-      "body": "Stay Hungry, Stay Foolish"
-    },
-    {
-      "id": "3ac8ab29-2b7d-0517-3b38-94d820e9483a",
-      "body": "\"It's true I don't know much about the players here, but they definitely know who I am.\"- Zlatan Ibrahimovic"
-    }
-  ]
+]
 }

@@ -12,9 +12,9 @@ const Main = () => {
       }}
     >
       <MainStBox>
-        <div style={{ backgroundColor: "rgb(106, 185, 106)", height: "100vh" }}>
+        <div>
           메인입니다.!
-          <Link to={"/login"}>
+          <Link to={"/match"}>
             <button>로그인</button>
           </Link>
         </div>
