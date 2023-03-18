@@ -5,8 +5,13 @@ import gameList from "../modules/main"
 
 const store = configureStore({
   reducer: { 
+<<<<<<< HEAD
+    match,
+},  
+=======
     match, users,gameList
 },
+>>>>>>> master
 devTools: process.env.NODE_ENV === "developmetns" ? false : true,
 });
 
