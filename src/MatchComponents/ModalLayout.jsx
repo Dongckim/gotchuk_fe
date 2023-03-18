@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
-const ModalLayout = () => {
+const ModalLayout = ({children}) => {
     return (
         <STdiv>
-            레이아웃
+            {children}
         </STdiv>
     )
 } 
@@ -11,5 +11,14 @@ const ModalLayout = () => {
 export default ModalLayout;
 
 const STdiv = styled.div`
-    background-color: rgb(255,255,255,0,8);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(255,255,255,0.1);
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `
