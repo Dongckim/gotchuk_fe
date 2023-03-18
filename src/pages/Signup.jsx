@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import api from "../axios/api";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 const SignBox = styled.form`
   background-color: rgb(106, 185, 106);
@@ -51,6 +50,7 @@ function Signup() {
         <input
           type="text"
           value={user.id}
+          required
           onChange={(e) => setUser({ ...user, id: e.target.value })}
           placeholder="아이디를 입력해주세요"
         />
@@ -60,6 +60,7 @@ function Signup() {
         <input
           type="password"
           value={user.password}
+          required
           onChange={(e) => setUser({ ...user, password: e.target.value })}
           placeholder="비밀번호를 입력해주세요"
         />
@@ -69,6 +70,7 @@ function Signup() {
         <input
           type="password"
           value={user.checkpassword}
+          required
           onChange={(e) => setUser({ ...user, checkpassword: e.target.value })}
           placeholder="비밀번호를 다시 입력해주세요"
         />

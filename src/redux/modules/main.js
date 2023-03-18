@@ -1,65 +1,42 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { setCookie } from "../../api/cookie";
+import api from "../../axios/api";
+
 
 const initialState = {
-    users : [],
+    gameList : [],
     error:null,
     isLogin:false,
 }
 
-export const __addUser = createAsyncThunk(
-    "addUser",
-    async(newuser, thunk) => {
+export const __getgame = createAsyncThunk(
+    'gamelist',
+    async(payload, thunk) => {
         try{
-            await axios.post('http://3.38.191.164/register',newuser)
-            return thunk.fulfillWithValue(newuser)
+            const {data} = await api.get('/gameList')
+            console.log(data)
+            return thunk.fulfillWithValue(data)
         }catch(error){
             return thunk.rejectWithValue(error)
         }
     }
 )
 
-export const __loginUser = createAsyncThunk(
-    "loginUser",
-    async(thatUser, thunk)=> {
-        try{
-            const response = await axios.post('http://3.38.191.164/login',thatUser)
-            const acessToken = response.data.token  
-            setCookie('token', acessToken)
-            return thunk.fulfillWithValue(thatUser)
-        }catch(error){
-            return thunk.rejectWithValue(error)
-        }
-    }
-)
 
-export const userSlice = createSlice({
-    name: 'users',
+export const gameSlice = createSlice({
+    name: 'gamelist',
     initialState,
     reducers:{},
     extraReducers:{
-        [__addUser.fulfilled] : (state, action) => {
-            state.isLogin = false;
-            state.users = [...state.users, action.payload]
-            window.location.reload();
-            alert('Welcome to Facebook!');
+        [__getgame.fulfilled] : (state, action) => {
+            state.gameList = action.payload
             
         },
-        [__addUser.rejected] : (state, action) => {
-            state.isLogin = false;
-            window.alert(action.payload.response.data.message)
-        },
-        [__loginUser.fulfilled] : (state, action) => {
-            state.isLogin = true;
-            alert('Welcome to Facebook!');
-        },
-        [__loginUser.rejected] : (state, action) => {
-            state.isLogin = false;
-            window.alert(action.payload.response.data.message)
+        
+        [__getgame.rejected] : (state, action) => {
+            state.gameList = action.payload
         },
     }
 })
 
-export default userSlice.reducer;
+
+export default gameSlice.reducer;
