@@ -15,7 +15,7 @@ export const __thatMatch = createAsyncThunk(
     async (payload, thunk) => {
         try{
             // const { data } = await axios.get(`${process.env.REACT_APP_COMMENTS}`)
-            const { data } = await axios.get(`http://localhost:4000/gameInfo`)
+            const { data } = await axios.get(`http://localhost:4001/gamelist`)
             return thunk.fulfillWithValue(data)
         }catch(error){
             return thunk.rejectWithValue(error)
@@ -28,7 +28,7 @@ export const __thatMatchPosts = createAsyncThunk(
     async (payload, thunk) => {
         try{
             // const { data } = await axios.get(`${process.env.REACT_APP_COMMENTS}`)
-            const { data } = await axios.get(`http://localhost:4000/commentList`)
+            const { data } = await axios.get(`http://localhost:4001/commentList`)
             return thunk.fulfillWithValue(data)
         }catch(error){
             return thunk.rejectWithValue(error)
@@ -40,7 +40,7 @@ export const __postBody = createAsyncThunk(
     'postBody',
     async(payload, thunk) => {
         try{
-            const response = await axios.post(`http://localhost:4000/commentList`,payload)
+            const response = await axios.post(`http://localhost:4001/commentList`,payload)
             return thunk.fulfillWithValue(payload)
         }catch(error){
             return thunk.rejectWithValue(error)
@@ -54,7 +54,7 @@ export const __EditBody = createAsyncThunk(
         console.log(payload)
         try{
             console.log(payload)
-            const response = await axios.patch(`http://localhost:4000/commentList/${payload.id}`,payload)
+            const response = await axios.patch(`http://localhost:4001/commentList/${payload.id}`,payload)
             return thunk.fulfillWithValue(payload)
         }catch(error){
             return thunk.rejectWithValue(error)
@@ -65,7 +65,7 @@ export const __EditBody = createAsyncThunk(
 export const __DeleteBody = createAsyncThunk(
     "DeleteBody",
     async(id, thunk) => {
-        await axios.delete(`http://localhost:4000/commentList/${id}`)
+        await axios.delete(`http://localhost:4001/commentList/${id}`)
         return thunk.fulfillWithValue(id)
     }
 )
