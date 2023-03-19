@@ -9,7 +9,7 @@ const initialState = {
     isLogin:false,
 }
 
-// export const __addUser = createAsyncThunk(`
+// export const __addUser = createAsyncThunk(
 //     "addUser",
 //     async(newuser, thunk) => {
 //         try{
@@ -26,8 +26,8 @@ export const __loginUser = createAsyncThunk(
     async(thatUser, thunk)=> {
         try{
             const response = await api.post('/user',thatUser)
-            const {token} = response.data 
-            cookies.set("token", token,{path:'/'})
+            // const {token} = response.data 
+            // cookies.set("token", token,{path:'/'})
             return thunk.fulfillWithValue(thatUser)
         }catch(error){
             return thunk.rejectWithValue(error)

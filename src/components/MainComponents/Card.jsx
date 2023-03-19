@@ -33,7 +33,7 @@ function Card(props) {
           <h2>vs</h2>
           <label>
             {list.teamB} {list.scoreB}골
-            <Link to={`/match/${list.id}`}>
+            <Link to={`/match/${list.gameId}`}>
               <button style={{ marginLeft: "400px", width: "200px" }}>
                 채 팅 시 작
               </button>
