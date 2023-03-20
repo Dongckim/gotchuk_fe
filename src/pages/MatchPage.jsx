@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import MainStBox from "../components/MainStBox";
 import MatchHeader from "../MatchComponents/MatchHeader";
 import MatchContainer from "../MatchComponents/MatchContainer";
 import styled from "styled-components";
@@ -18,47 +17,46 @@ import ModalContainer from "../MatchComponents/ModalContainer";
 import Profile from "../MatchComponents/Profile";
 import { RxTrash, RxUpdate } from "react-icons/rx";
 import { useParams } from "react-router-dom";
+import MainHeader from "../components/MainComponents/MainHeader";
 
 function MatchPage() {
-  const reducer = useSelector((state) => state.gameList.gameList);
-  const param = useParams();
-  const newPage = reducer.find((item) => item.gameId === +param.gameId);
+  const {gameId} = useParams();
   const dispatch = useDispatch();
   const { posts, isShow, isShowEdit } = useSelector((state) => state.match);
+  const {param} = useSelector(state => state.match)
   const [newpost, setNewpost] = useState("");
   const [numid, setNumid] = useState("");
   const value = posts.find((item) => item.id == numid)?.body;
 
+  console.log(gameId)
+
   const onSubmitHandler = (event, id) => {
     event.preventDefault();
-
     dispatch(
-      __EditBody({
+      __EditBody([{
         username : id,
         body: newpost,
-      })
+      },+param])
     );
     dispatch(openEditHandler());
   };
 
   const onDeleteHandler = (id) => {
-    dispatch(__DeleteBody(id));
+    dispatch(__DeleteBody([id, +param]));
   };
 
   const onStoreItemNum = (id) => {
     setNumid(id);
   };
   useEffect(() => {
-    fetch("http://13.124.165.86/api/games/1")
-    dispatch(__thatMatchPosts());
+    dispatch(__thatMatchPosts(gameId));
   }, []);
-
-  console.log(posts)
-
+  
   return (
     <Matchpagebackground>
+      <MainHeader gameId={gameId}/>
       <MainStBox>
-        <MatchHeader newpage={newPage}></MatchHeader>
+        <MatchHeader gameId = {gameId}></MatchHeader>
         <MatchContainer>
           {posts.map((item) => {
             return (
@@ -184,7 +182,7 @@ const Matchpagebackground = styled.div`
   background-size: cover;
   size: 100vh;
   height: 100%;
-`;
+`
 const EditButton = styled.div`
   width: 50px;
   height: 50px;
@@ -201,11 +199,18 @@ const EditButton = styled.div`
   :active {
     background-color: #787878;
   }
-`;
+`
 const STdiv = styled.div`
   height: 500px;
   width: 300px;
   background-color: #ffffff;
   border-radius: 12px;
   padding: 20px;
-`;
+`
+
+const MainStBox = styled.div`
+  min-width: 100px;
+  width: 1000px;
+  padding-top: 50px;
+  justify-content: center;
+`

@@ -1,25 +1,45 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const MainHeader = () => {
+    const navigate = useNavigate();
     return (
         <STdiv>
-            <Mdiv>⚽️ GotChuck</Mdiv>
-            <Fontdiv>FotMob</Fontdiv>
-            <Fontdiv>Naver Sports</Fontdiv>
-            <Fontdiv>Youtube Estar TV</Fontdiv> 
-            <div style={{display:'flex', gap:'15px'}}>
-                <Fontdiv>
-                    로그인
-                </Fontdiv>
-                <Fontdiv>
-                    회원가입
-                </Fontdiv>
-            </div>
+            <Wrapper>
+                <div style={{display:'flex', alignItems:'center', gap:'50px'}}>
+                    <Mdiv onClick={()=>{navigate('/')}}>
+                        <div> ⚽️ </div>
+                        <div>GotChuck</div>
+                    </Mdiv>
+                    <Fontdiv>FotMob</Fontdiv>
+                    <Fontdiv>Naver Sports</Fontdiv>
+                    <Fontdiv>Youtube E-Star TV</Fontdiv>  
+                </div>
+                <div style={{display:'flex', gap:'20px'}}>
+                    <Fontdiv onClick={()=>{navigate('/login')}}>
+                        Login
+                    </Fontdiv>
+                    <Fontdiv onClick={()=>{navigate('/signup')}}>
+                        Signup
+                    </Fontdiv>
+                </div>
+            </Wrapper>
         </STdiv>
+            
+            
     )
 }
 
 export default MainHeader;
+
+const Wrapper = styled.div`
+    padding-left: 30px;
+    padding-right: 40px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    width:100vw;
+`
 
 const STdiv = styled.div`
     font-family: 'IBMPlexSansKR-Regular';
@@ -28,17 +48,18 @@ const STdiv = styled.div`
     width: 100vw;
     display: flex;
     align-items: center;
-    padding-left:50px;
-    gap: 30px;
-    
+    color: #ffffff;
 `
 const Fontdiv = styled.div`
     font-size: 25px;
-    margin-top: 10px;
+    cursor: pointer;
 `
 
 const Mdiv = styled.div`
+    display: flex;
+    gap: 15px;
     font-size: 40px;
     font-weight: 600;
-    padding-right: 30px;
+    cursor: pointer;
+    align-items: center;
 `   

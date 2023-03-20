@@ -3,16 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import styled, { css } from "styled-components";
 import { __thatMatch } from "../redux/modules/match";
 
-const MatchHeader = (pr) => {
-  const props = pr.newpage;
-  //   const { props } = useSelector((state) => state.match);
+const MatchHeader = ({gameId}) => {
   const dispatch = useDispatch();
-
+  const { match } = useSelector(state => state.match)
   useEffect(() => {
-    dispatch(__thatMatch());
+    dispatch(__thatMatch(gameId));
   }, []);
-
-  console.log('--------',props)
 
   return (
     <STdiv theme={"matchinfo"}>
@@ -26,9 +22,9 @@ const MatchHeader = (pr) => {
           }}
         >
           <span style={{ fontSize: "35px", fontWeight: "600", width: "150px" }}>
-            {props?.teamA}
+            {match?.teamA}
           </span>
-          <span style={{ fontSize: "30px" }}>{props?.scoreA} </span>
+          <span style={{ fontSize: "30px" }}>{match?.scoreA} </span>
         </div>
         <div
           style={{
@@ -51,9 +47,9 @@ const MatchHeader = (pr) => {
           }}
         >
           <span style={{ fontSize: "35px", fontWeight: "600", width: "150px" }}>
-            {props?.teamB}
+            {match?.teamB}
           </span>
-          <span style={{ fontSize: "30px" }}>{props?.scoreB}</span>
+          <span style={{ fontSize: "30px" }}>{match?.scoreB}</span>
         </div>
       </div>
     </STdiv>

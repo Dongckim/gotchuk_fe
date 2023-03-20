@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import api from "../axios/api";
 import { useNavigate } from "react-router-dom";
+import MainHeader from "../components/MainComponents/MainHeader";
 
 const SignStyle = styled.div`
   height: 100vh;
@@ -70,9 +71,9 @@ function Signup() {
   const submitButtonHandler = async (e) => {
     e.preventDefault();
     if (user.password === user.checkpassword) {
-      console.log(user);
       await api.post("/api/user/signup", user);
       navigate("/login");
+      window.location.reload();
     } else {
       alert("비밀번호가 일치하지 않습니다.");
     }
@@ -80,10 +81,10 @@ function Signup() {
 
   return (
     <SignStyle>
+      <MainHeader/>
       <SignBox onSubmit={submitButtonHandler}>
         <BoxStyle>
           <h2>회원가입</h2>
-          <label>아이디 : </label>
           <InputStyle
             type="text"
             value={user.username}
@@ -93,7 +94,6 @@ function Signup() {
           />
         </BoxStyle>
         <BoxStyle>
-          <label>비밀번호 : </label>
           <InputStyle
             type="password"
             value={user.password}
@@ -103,7 +103,6 @@ function Signup() {
           />
         </BoxStyle>
         <BoxStyle>
-          <label>비밀번호 확인 : </label>
           <InputStyle
             type="password"
             value={user.checkpassword}

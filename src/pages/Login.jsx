@@ -2,16 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import MainHeader from "../components/MainComponents/MainHeader";
 import { __loginUser } from "../redux/modules/login";
 
-const DummyHeader = styled.header`
-  width: 100vw;
-  height: 50px;
-  background-color: green;
-`;
-
 const LoginStyle = styled.div`
-  height: calc(100vh - 50px);
+  height: 100vh;
   width: 100vw;
   background-image: linear-gradient(
       0deg,
@@ -78,7 +73,7 @@ function Login() {
 
   return (
     <>
-      <DummyHeader />
+      <MainHeader/>
       <LoginStyle>
         <LoginBox
           onSubmit={(e) => {
@@ -90,7 +85,6 @@ function Login() {
           <h2>GotChuck</h2>
 
           <BoxStyle>
-            <label>아이디 : </label>
             <InputStyle
               type="text"
               value={user.username}
@@ -100,7 +94,6 @@ function Login() {
             />
           </BoxStyle>
           <BoxStyle>
-            <label>비밀번호 : </label>
             <InputStyle
               type="password"
               value={user.password}
