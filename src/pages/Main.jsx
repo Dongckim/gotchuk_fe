@@ -20,7 +20,7 @@ const Main = () => {
   }, []);
 
   const { gameList } = useSelector((state) => state.gameList);
-  // console.log(gameList);
+  console.log(gameList);
 
   return (
     <div
