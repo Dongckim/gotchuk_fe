@@ -9,6 +9,7 @@ import {
   openEditHandler,
   __DeleteBody,
   __EditBody,
+  __postBody,
   __thatMatchPosts,
 } from "../redux/modules/match";
 import MatchPostToggle from "../MatchComponents/MatchPostToggle";
@@ -24,7 +25,6 @@ function MatchPage() {
   const newPage = reducer.find((item) => item.gameId === +param.gameId);
   const dispatch = useDispatch();
   const { posts, isShow, isShowEdit } = useSelector((state) => state.match);
-  console.log(posts);
   const [newpost, setNewpost] = useState("");
   const [numid, setNumid] = useState("");
   const value = posts.find((item) => item.id == numid)?.body;
@@ -34,7 +34,7 @@ function MatchPage() {
 
     dispatch(
       __EditBody({
-        id,
+        username : id,
         body: newpost,
       })
     );
@@ -49,8 +49,11 @@ function MatchPage() {
     setNumid(id);
   };
   useEffect(() => {
+    fetch("http://13.124.165.86/api/games/1")
     dispatch(__thatMatchPosts());
   }, []);
+
+  console.log(posts)
 
   return (
     <Matchpagebackground>
@@ -59,7 +62,7 @@ function MatchPage() {
         <MatchContainer>
           {posts.map((item) => {
             return (
-              <MatchPost key={item.commentId}>
+              <MatchPost key={item.id}>
                 <div style={{ display: "flex", gap: "80px" }}>
                   <div
                     style={{
