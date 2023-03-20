@@ -4,6 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import MainHeader from "../components/MainComponents/MainHeader";
 import { __loginUser } from "../redux/modules/login";
+<<<<<<< HEAD
+=======
+import MainHeader from "../components/MainComponents/MainHeader";
+>>>>>>> master
 
 const LoginStyle = styled.div`
   height: 100vh;
@@ -15,8 +19,6 @@ const LoginStyle = styled.div`
     ),
     url("https://image.fmkorea.com/files/attach/new3/20230126/33854530/5287715641/5433174744/59540154ce0e1cdb159d0c4af2089f1b.jpg");
   background-size: cover;
-  /* transform: translateY(50px); */
-  /* background-position: center 50px; */
 `;
 
 const LoginBox = styled.form`
@@ -73,7 +75,11 @@ function Login() {
 
   return (
     <>
+<<<<<<< HEAD
       <MainHeader/>
+=======
+      <MainHeader />
+>>>>>>> master
       <LoginStyle>
         <LoginBox
           onSubmit={(e) => {

@@ -3,6 +3,11 @@ import styled from "styled-components";
 import api from "../axios/api";
 import { useNavigate } from "react-router-dom";
 import MainHeader from "../components/MainComponents/MainHeader";
+<<<<<<< HEAD
+=======
+import { useEffect } from "react";
+import { cookies } from "../shared/cookies";
+>>>>>>> master
 
 const SignStyle = styled.div`
   height: 100vh;
@@ -68,18 +73,41 @@ function Signup() {
     checkpassword: "",
   });
 
+  const token = cookies.get("token");
+
   const submitButtonHandler = async (e) => {
     e.preventDefault();
+<<<<<<< HEAD
     if (user.password === user.checkpassword) {
       await api.post("/api/user/signup", user);
       navigate("/login");
       window.location.reload();
     } else {
+=======
+    try {
+      if (user.password === user.checkpassword) {
+        console.log(user);
+        await api.post("/api/user/signup", user);
+        navigate("/login");
+      }
+    } catch (e) {
+>>>>>>> master
       alert("비밀번호가 일치하지 않습니다.");
     }
   };
 
+  useEffect(() => {
+    if (token) {
+      navigate("/");
+    }
+
+    return () => {
+      // second
+    };
+  }, []);
+
   return (
+<<<<<<< HEAD
     <SignStyle>
       <MainHeader/>
       <SignBox onSubmit={submitButtonHandler}>
@@ -116,6 +144,49 @@ function Signup() {
         <ButtonStyle type="submit">회원가입 완료</ButtonStyle>
       </SignBox>
     </SignStyle>
+=======
+    <>
+      <MainHeader />
+      <SignStyle>
+        <SignBox onSubmit={submitButtonHandler}>
+          <BoxStyle>
+            <h2>회원가입</h2>
+            <label>아이디 : </label>
+            <InputStyle
+              type="text"
+              value={user.username}
+              required
+              onChange={(e) => setUser({ ...user, username: e.target.value })}
+              placeholder=" 8자 이상 15미만으로 입력해주세요"
+            />
+          </BoxStyle>
+          <BoxStyle>
+            <label>비밀번호 : </label>
+            <InputStyle
+              type="password"
+              value={user.password}
+              required
+              onChange={(e) => setUser({ ...user, password: e.target.value })}
+              placeholder=" 8자 이상 15미만으로 입력해주세요"
+            />
+          </BoxStyle>
+          <BoxStyle>
+            <label>비밀번호 확인 : </label>
+            <InputStyle
+              type="password"
+              value={user.checkpassword}
+              required
+              onChange={(e) =>
+                setUser({ ...user, checkpassword: e.target.value })
+              }
+              placeholder=" 비밀번호를 다시 입력해주세요"
+            />
+          </BoxStyle>
+          <ButtonStyle type="submit">회원가입 완료</ButtonStyle>
+        </SignBox>
+      </SignStyle>
+    </>
+>>>>>>> master
   );
 }
 

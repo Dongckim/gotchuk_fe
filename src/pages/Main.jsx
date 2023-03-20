@@ -24,6 +24,7 @@ const Main = () => {
 
   return (
     <>
+<<<<<<< HEAD
       <MainHeader/>
       
         {isToken?(
@@ -41,6 +42,28 @@ const Main = () => {
         ): <Wrapper theme={'login'}/>}
     </>
   
+=======
+      <MainHeader />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignContent: "center",
+          backgroundColor: "red",
+        }}
+      >
+        <MainStBox>
+          <div>
+            <div key={gameList.id}>
+              {gameList.map((item) => {
+                return <Card key={item.id} gameList={item} />;
+              })}
+            </div>
+          </div>
+        </MainStBox>
+      </div>
+    </>
+>>>>>>> master
   );
 };
 
