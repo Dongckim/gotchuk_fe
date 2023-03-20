@@ -14,7 +14,7 @@ export const __getgame = createAsyncThunk(
         try{
             const {data} = await api.get('api/games/')
             // console.log('데이터',data)
-            return thunk.fulfillWithValue(data)
+            return thunk.fulfillWithValue(data.gameList)
         }catch(error){
             return thunk.rejectWithValue(error)
         }
