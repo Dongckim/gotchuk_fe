@@ -4,10 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import MainHeader from "../components/MainComponents/MainHeader";
 import { __loginUser } from "../redux/modules/login";
-<<<<<<< HEAD
-=======
-import MainHeader from "../components/MainComponents/MainHeader";
->>>>>>> master
 
 const LoginStyle = styled.div`
   height: 100vh;
@@ -75,11 +71,7 @@ function Login() {
 
   return (
     <>
-<<<<<<< HEAD
-      <MainHeader/>
-=======
       <MainHeader />
->>>>>>> master
       <LoginStyle>
         <LoginBox
           onSubmit={(e) => {

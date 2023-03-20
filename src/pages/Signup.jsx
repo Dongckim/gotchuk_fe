@@ -3,11 +3,8 @@ import styled from "styled-components";
 import api from "../axios/api";
 import { useNavigate } from "react-router-dom";
 import MainHeader from "../components/MainComponents/MainHeader";
-<<<<<<< HEAD
-=======
 import { useEffect } from "react";
 import { cookies } from "../shared/cookies";
->>>>>>> master
 
 const SignStyle = styled.div`
   height: 100vh;
@@ -77,13 +74,6 @@ function Signup() {
 
   const submitButtonHandler = async (e) => {
     e.preventDefault();
-<<<<<<< HEAD
-    if (user.password === user.checkpassword) {
-      await api.post("/api/user/signup", user);
-      navigate("/login");
-      window.location.reload();
-    } else {
-=======
     try {
       if (user.password === user.checkpassword) {
         console.log(user);
@@ -91,7 +81,6 @@ function Signup() {
         navigate("/login");
       }
     } catch (e) {
->>>>>>> master
       alert("비밀번호가 일치하지 않습니다.");
     }
   };
@@ -107,44 +96,6 @@ function Signup() {
   }, []);
 
   return (
-<<<<<<< HEAD
-    <SignStyle>
-      <MainHeader/>
-      <SignBox onSubmit={submitButtonHandler}>
-        <BoxStyle>
-          <h2>회원가입</h2>
-          <InputStyle
-            type="text"
-            value={user.username}
-            required
-            onChange={(e) => setUser({ ...user, username: e.target.value })}
-            placeholder="아이디를 입력해주세요"
-          />
-        </BoxStyle>
-        <BoxStyle>
-          <InputStyle
-            type="password"
-            value={user.password}
-            required
-            onChange={(e) => setUser({ ...user, password: e.target.value })}
-            placeholder="비밀번호를 입력해주세요"
-          />
-        </BoxStyle>
-        <BoxStyle>
-          <InputStyle
-            type="password"
-            value={user.checkpassword}
-            required
-            onChange={(e) =>
-              setUser({ ...user, checkpassword: e.target.value })
-            }
-            placeholder="비밀번호를 다시 입력해주세요"
-          />
-        </BoxStyle>
-        <ButtonStyle type="submit">회원가입 완료</ButtonStyle>
-      </SignBox>
-    </SignStyle>
-=======
     <>
       <MainHeader />
       <SignStyle>
@@ -186,7 +137,6 @@ function Signup() {
         </SignBox>
       </SignStyle>
     </>
->>>>>>> master
   );
 }
 

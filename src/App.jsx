@@ -5,12 +5,7 @@ import Router from "./shared/Router";
 function App() {
   return (
     <>
-<<<<<<< HEAD
       <Router/>
-=======
-      <MainHeader />
-      <Router />
->>>>>>> master
     </>
   );
 }
