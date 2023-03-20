@@ -5,11 +5,12 @@ import Router from "./shared/Router";
 function App() {
   return (
     <>
-      <MainHeader/>
-      <Router/>
+      <Router>
+        {" "}
+        <MainHeader />
+      </Router>
     </>
-  )
-
+  );
 }
 
 export default App;

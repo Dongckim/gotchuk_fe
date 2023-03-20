@@ -20,28 +20,27 @@ const Main = () => {
   const { gameList } = useSelector((state) => state.gameList);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignContent: "center",
-      }}
-    >
-      <MainStBox>
-        <div>
-          <header>
-            <Link to={"/login"}>
-              <button>로그인</button>
-            </Link>
-          </header>
-          <div key={gameList.id}>
-            {gameList.map((item) => {
-              return <Card key={item.id} gameList={item} />;
-            })}
+    <>
+      <MainHeader />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignContent: "center",
+          backgroundColor: "red",
+        }}
+      >
+        <MainStBox>
+          <div>
+            <div key={gameList.id}>
+              {gameList.map((item) => {
+                return <Card key={item.id} gameList={item} />;
+              })}
+            </div>
           </div>
-        </div>
-      </MainStBox>
-    </div>
+        </MainStBox>
+      </div>
+    </>
   );
 };
 

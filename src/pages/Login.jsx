@@ -3,15 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { __loginUser } from "../redux/modules/login";
-
-const DummyHeader = styled.header`
-  width: 100vw;
-  height: 50px;
-  background-color: green;
-`;
+import MainHeader from "../components/MainComponents/MainHeader";
 
 const LoginStyle = styled.div`
-  height: calc(100vh - 50px);
+  height: 100vh;
   width: 100vw;
   background-image: linear-gradient(
       0deg,
@@ -20,8 +15,6 @@ const LoginStyle = styled.div`
     ),
     url("https://image.fmkorea.com/files/attach/new3/20230126/33854530/5287715641/5433174744/59540154ce0e1cdb159d0c4af2089f1b.jpg");
   background-size: cover;
-  /* transform: translateY(50px); */
-  /* background-position: center 50px; */
 `;
 
 const LoginBox = styled.form`
@@ -78,7 +71,7 @@ function Login() {
 
   return (
     <>
-      <DummyHeader />
+      <MainHeader />
       <LoginStyle>
         <LoginBox
           onSubmit={(e) => {
