@@ -27,7 +27,7 @@ const BoxStyle = styled.div`
 function Signup() {
   const navigate = useNavigate();
   const [user, setUser] = useState({
-    id: "",
+    username: "",
     password: "",
     checkpassword: "",
   });
@@ -36,7 +36,7 @@ function Signup() {
     e.preventDefault();
     if (user.password === user.checkpassword) {
       console.log(user);
-      await api.post("/user", user);
+      await api.post("/api/user/signup", user);
       navigate("/login");
     } else {
       alert("비밀번호가 일치하지 않습니다.");
@@ -49,9 +49,9 @@ function Signup() {
       <BoxStyle>
         <input
           type="text"
-          value={user.id}
+          value={user.username}
           required
-          onChange={(e) => setUser({ ...user, id: e.target.value })}
+          onChange={(e) => setUser({ ...user, username: e.target.value })}
           placeholder="아이디를 입력해주세요"
         />
       </BoxStyle>
