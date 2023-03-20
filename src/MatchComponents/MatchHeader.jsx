@@ -12,6 +12,8 @@ const MatchHeader = (pr) => {
     dispatch(__thatMatch());
   }, []);
 
+  console.log('--------',props)
+
   return (
     <STdiv theme={"matchinfo"}>
       <div style={{ display: "flex", gap: "150px", alignItems: "center" }}>

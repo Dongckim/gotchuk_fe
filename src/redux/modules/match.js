@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import api from "../../axios/api";
+import { getCookie } from "../../shared/cookies";
 
 const initialState = {
     match : [],
@@ -28,8 +30,14 @@ export const __thatMatchPosts = createAsyncThunk(
     async (payload, thunk) => {
         try{
             // const { data } = await axios.get(`${process.env.REACT_APP_COMMENTS}`)
-            const { data } = await axios.get(`http://13.124.165.86/commentList`)
-            return thunk.fulfillWithValue(data)
+            const token = getCookie('token')
+            const { data } = await api.get(`api/games/1`,{
+                headers : {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            console.log('코네트', data)
+            return thunk.fulfillWithValue(data.commentList)
         }catch(error){
             return thunk.rejectWithValue(error)
         }
@@ -40,7 +48,13 @@ export const __postBody = createAsyncThunk(
     'postBody',
     async(payload, thunk) => {
         try{
-            const response = await axios.post(`http://13.124.165.86/commentList`,payload)
+            const token = getCookie('token')
+            const response = await api.post(`api/games/1/comments`,payload,{
+                headers : {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            console.log(response)
             return thunk.fulfillWithValue(payload)
         }catch(error){
             return thunk.rejectWithValue(error)
@@ -53,8 +67,12 @@ export const __EditBody = createAsyncThunk(
     async(payload, thunk) => {
         console.log(payload)
         try{
-            console.log(payload)
-            const response = await axios.patch(`http://13.124.165.86/commentList/${payload.id}`,payload)
+            const token = getCookie('token')
+            const response = await api.patch(`api/games/1/comments/${payload.id}`,payload,{
+                headers : {
+                    Authorization: `Bearer ${token}`
+                }
+            })
             return thunk.fulfillWithValue(payload)
         }catch(error){
             return thunk.rejectWithValue(error)
@@ -65,7 +83,13 @@ export const __EditBody = createAsyncThunk(
 export const __DeleteBody = createAsyncThunk(
     "DeleteBody",
     async(id, thunk) => {
-        await axios.delete(`http://13.124.165.86/commentList/${id}`)
+        console.log(id)
+        const token = getCookie('token')
+        await api.delete(`api/games/1/comments/${id}`,{
+            headers : {
+                Authorization: `Bearer ${token}`
+            }
+        })
         return thunk.fulfillWithValue(id)
     }
 )

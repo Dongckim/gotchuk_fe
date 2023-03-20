@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { openHandler, __postBody } from "../redux/modules/match";
 import uuid4 from "uuid4";
+import { getCookie } from "../shared/cookies";
 
 const ModalContainer = ({children}) => {
     const dispatch = useDispatch();
@@ -10,16 +11,15 @@ const ModalContainer = ({children}) => {
 
     const onSubmitHandler=(event)=>{
         event.preventDefault();
+        const id = getCookie('userId')
         dispatch(__postBody({
-            "id":uuid4(),
-            "commentId": uuid4(),
+            "id": id,
             "body": newpost,
-            "username": "아이디3",
-            "createdAt": "2023-03-17T12:55:06.729608",
-            "modifiedAt": "2023-04-01T12:57:06.729608"
         }));   
         dispatch(openHandler());
     }
+
+
 
     return(
         <STdiv>
