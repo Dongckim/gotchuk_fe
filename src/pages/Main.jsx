@@ -18,7 +18,7 @@ const Main = () => {
   }, []);
 
   const { gameList } = useSelector((state) => state.gameList);
- 
+
   return (
     <div
       style={{

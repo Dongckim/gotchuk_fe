@@ -16,6 +16,9 @@ export const __thatMatch = createAsyncThunk(
     "thatMatch",
     async (payload, thunk) => {
         try{
+            // const { data } = await axios.get(`${process.env.REACT_APP_COMMENTS}`)
+            const { data } = await axios.get(`http://13.124.165.86/gamesList`)
+            return thunk.fulfillWithValue(data)
         }catch(error){
             return thunk.rejectWithValue(error)
         }
