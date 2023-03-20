@@ -6,6 +6,7 @@ import { getCookie } from "../../shared/cookies";
 const initialState = {
     match : [],
     posts : [],
+    param : [],
     error : null,
     isLogin : false,
     isShow : false,
@@ -14,11 +15,16 @@ const initialState = {
 
 export const __thatMatch = createAsyncThunk(
     "thatMatch",
-    async (payload, thunk) => {
+    async (gameId, thunk) => {
         try{
-            // const { data } = await axios.get(`${process.env.REACT_APP_COMMENTS}`)
-            const { data } = await axios.get(`http://13.124.165.86/gamesList`)
-            return thunk.fulfillWithValue(data)
+            console.log(gameId)
+            const token = getCookie('token')
+            const { data } = await api.get(`api/games/${gameId}`,{
+                headers : {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            return thunk.fulfillWithValue([data.gameInfo, gameId])
         }catch(error){
             return thunk.rejectWithValue(error)
         }
@@ -27,16 +33,15 @@ export const __thatMatch = createAsyncThunk(
 
 export const __thatMatchPosts = createAsyncThunk(
     "thatMatchPosts",
-    async (payload, thunk) => {
+    async (gameId, thunk) => {
         try{
             // const { data } = await axios.get(`${process.env.REACT_APP_COMMENTS}`)
             const token = getCookie('token')
-            const { data } = await api.get(`api/games/1`,{
+            const { data } = await api.get(`api/games/${gameId}`,{
                 headers : {
                     Authorization: `Bearer ${token}`
                 }
             })
-            console.log('코네트', data)
             return thunk.fulfillWithValue(data.commentList)
         }catch(error){
             return thunk.rejectWithValue(error)
@@ -49,13 +54,14 @@ export const __postBody = createAsyncThunk(
     async(payload, thunk) => {
         try{
             const token = getCookie('token')
-            const response = await api.post(`api/games/1/comments`,payload,{
+            console.log('sss',payload)
+            const response = await api.post(`api/games/${payload[1]}/comments`,payload[0],{
                 headers : {
                     Authorization: `Bearer ${token}`
                 }
             })
             console.log(response)
-            return thunk.fulfillWithValue(payload)
+            return thunk.fulfillWithValue(payload[0])
         }catch(error){
             return thunk.rejectWithValue(error)
         }
@@ -65,15 +71,14 @@ export const __postBody = createAsyncThunk(
 export const __EditBody = createAsyncThunk(
     'EditBody',
     async(payload, thunk) => {
-        console.log(payload)
         try{
             const token = getCookie('token')
-            const response = await api.patch(`api/games/1/comments/${payload.id}`,payload,{
+            const response = await api.patch(`api/games/${payload[1]}/comments/${payload[0].username}`,payload[0],{
                 headers : {
                     Authorization: `Bearer ${token}`
                 }
             })
-            return thunk.fulfillWithValue(payload)
+            return thunk.fulfillWithValue(payload[0])
         }catch(error){
             return thunk.rejectWithValue(error)
         }
@@ -82,15 +87,14 @@ export const __EditBody = createAsyncThunk(
 
 export const __DeleteBody = createAsyncThunk(
     "DeleteBody",
-    async(id, thunk) => {
-        console.log(id)
+    async(payload, thunk) => {
         const token = getCookie('token')
-        await api.delete(`api/games/1/comments/${id}`,{
+        await api.delete(`api/games/${payload[1]}/comments/${payload[0]}`,{
             headers : {
                 Authorization: `Bearer ${token}`
             }
         })
-        return thunk.fulfillWithValue(id)
+        return thunk.fulfillWithValue(payload[0])
     }
 )
 
@@ -107,7 +111,8 @@ export const matchSlice = createSlice({
     },
     extraReducers:{
     [__thatMatch.fulfilled] : (state, action) => {
-        state.match = action.payload
+        state.match = action.payload[0]
+        state.param = action.payload[1]
     },
     [__thatMatchPosts.fulfilled] : (state, action) => {
         state.posts = action.payload
@@ -117,7 +122,7 @@ export const matchSlice = createSlice({
     },
     [__EditBody.fulfilled] : (state,action) => {
         state.posts = state.posts.map((item)=> {
-            if(item.id==action.payload.id){
+            if(item.id==action.payload.username){
                 item.body = action.payload.body
                 return item
             }else{
