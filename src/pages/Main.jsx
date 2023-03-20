@@ -1,23 +1,26 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Card from "../components/MainComponents/Card";
 import MainStBox from "../components/MainStBox";
 import { __getgame } from "../redux/modules/main";
+import { cookies } from "../shared/cookies";
 
 const Main = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // if(token){
-    dispatch(__getgame());
-    // }else{
-    //   navigate('/login')
-    // }
+    const token = cookies.get("token");
+    if (token) {
+      dispatch(__getgame());
+    } else {
+      navigate("/login");
+    }
   }, []);
 
   const { gameList } = useSelector((state) => state.gameList);
-  console.log(gameList);
+  // console.log(gameList);
 
   return (
     <div

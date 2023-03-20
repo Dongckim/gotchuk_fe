@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import api from "../../axios/api";
 import { cookies } from "../../shared/cookies";
+import jwt_decode from "jwt-decode";
 
 
 const initialState = {
@@ -25,10 +26,16 @@ export const __loginUser = createAsyncThunk(
     "loginUser",
     async(thatUser, thunk)=> {
         try{
-            const response = await api.post('/user',thatUser)
-            // const {token} = response.data 
-            // cookies.set("token", token,{path:'/'})
-            return thunk.fulfillWithValue(thatUser)
+            const response = await api.post('/api/user/login/',thatUser)
+            console.log(response)
+             const token = response.headers.authorization
+             const newtoken = token.split(" ")[1]
+            //  console.log(newtoken)
+             const payload = jwt_decode(newtoken);
+             console.log(payload)
+             cookies.set("token", newtoken,{path:'/'})
+             cookies.set("userId",payload.sub,{path:"/"})
+            return thunk.fulfillWithValue(payload)
         }catch(error){
             return thunk.rejectWithValue(error)
         }
@@ -40,24 +47,14 @@ export const userSlice = createSlice({
     initialState,
     reducers:{},
     extraReducers:{
-        // [__addUser.fulfilled] : (state, action) => {
-        //     state.isLogin = false;
-        //     state.users = [...state.users, action.payload]
-        //     window.location.reload();
-        //     alert('Welcome to Facebook!');
-
-        // },
-        // [__addUser.rejected] : (state, action) => {
-        //     state.isLogin = false;
-        //     window.alert(action.payload.response.data.message)
-        // },
         [__loginUser.fulfilled] : (state, action) => {
             state.isLogin = true;
+            state.users = action.payload
             alert('Welcome to 가축 World!!');
         },
         [__loginUser.rejected] : (state, action) => {
             state.isLogin = false;
-            window.alert(action.payload.response.data.message)
+            window.alert(action.payload)
         },
     }
 })

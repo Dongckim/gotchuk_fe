@@ -18,7 +18,7 @@ const BoxStyle = styled.div`
 
 function Login() {
   const [user, setUser] = useState({
-    id: "",
+    username: "",
     password: "",
   });
   const dispacth = useDispatch();
@@ -49,9 +49,9 @@ function Login() {
         아이디
         <input
           type="text"
-          value={user.id}
+          value={user.username}
           required
-          onChange={(e) => setUser({ ...user, id: e.target.value })}
+          onChange={(e) => setUser({ ...user, username: e.target.value })}
           placeholder="아이디를 입력해주세요"
         />
       </BoxStyle>
