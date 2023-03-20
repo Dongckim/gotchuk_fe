@@ -48,6 +48,15 @@ const MainHeader = () => {
 
 export default MainHeader;
 
+const Wrapper = styled.div`
+    padding-left: 30px;
+    padding-right: 40px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    width:100vw;
+`
+
 const STdiv = styled.div`
   font-family: "IBMPlexSansKR-Regular";
   position: fixed;

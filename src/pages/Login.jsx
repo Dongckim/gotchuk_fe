@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { __loginUser } from "../redux/modules/login";
 import MainHeader from "../components/MainComponents/MainHeader";
+import { __loginUser } from "../redux/modules/login";
 
 const LoginStyle = styled.div`
   height: 100vh;
@@ -83,7 +83,6 @@ function Login() {
           <h2>GotChuck</h2>
 
           <BoxStyle>
-            <label>아이디 : </label>
             <InputStyle
               type="text"
               value={user.username}
@@ -93,7 +92,6 @@ function Login() {
             />
           </BoxStyle>
           <BoxStyle>
-            <label>비밀번호 : </label>
             <InputStyle
               type="password"
               value={user.password}
