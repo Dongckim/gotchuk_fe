@@ -6,19 +6,22 @@ import uuid4 from "uuid4";
 import { getCookie } from "../shared/cookies";
 
 const ModalContainer = ({children}) => {
-    const{param} = useSelector(state=>state.match)
+    const{param, commentId } = useSelector(state=>state.match)
     const dispatch = useDispatch();
     const [newpost, setNewpost] = useState('');
-
-    console.log('------',param)
 
     const onSubmitHandler=(event)=>{
         event.preventDefault();
         const id = getCookie('userId')
-        dispatch(__postBody([{
-            "id": id,
-            "body": newpost,
-        }, +param]));   
+
+
+        const body = {
+            id:commentId,
+            username: id,
+            body: newpost,
+        }
+
+        dispatch(__postBody({body, gameId: +param}));   
         dispatch(openHandler());
     }
 

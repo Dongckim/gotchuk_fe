@@ -21,9 +21,10 @@ const MainHeader = () => {
           <Fontdiv>Youtube Estar TV</Fontdiv>
           <div style={{ display: "flex", gap: "15px" }}>
             <Fontdiv>{cookies.get("userId")} 님 안녕하세요</Fontdiv>
-            <Fontdiv
+            <Fontdiv 
               onClick={(e) => {
                 delHandler(e);
+                navi("/")
               }}
             >
               로그아웃
@@ -71,10 +72,12 @@ const STdiv = styled.div`
 const Fontdiv = styled.div`
   font-size: 25px;
   margin-top: 10px;
+  cursor: pointer;
 `;
 
 const Mdiv = styled.div`
   font-size: 40px;
   font-weight: 600;
   padding-right: 30px;
+  cursor: pointer;
 `;
