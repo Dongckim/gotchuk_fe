@@ -18,25 +18,29 @@ import Profile from "../MatchComponents/Profile";
 import { RxTrash, RxUpdate } from "react-icons/rx";
 import { useParams } from "react-router-dom";
 import MainHeader from "../components/MainComponents/MainHeader";
+import ReplyButton from "./replycomponents/ReplyButton";
 
 function MatchPage() {
-  const {gameId} = useParams();
+  const { gameId } = useParams();
   const dispatch = useDispatch();
   const { posts, isShow, isShowEdit } = useSelector((state) => state.match);
-  const {param} = useSelector(state => state.match)
+  const { param } = useSelector((state) => state.match);
   const [newpost, setNewpost] = useState("");
   const [numid, setNumid] = useState("");
   const value = posts.find((item) => item.id == numid)?.body;
 
-  console.log(gameId)
+  console.log(gameId);
 
   const onSubmitHandler = (event, id) => {
     event.preventDefault();
     dispatch(
-      __EditBody([{
-        username : id,
-        body: newpost,
-      },+param])
+      __EditBody([
+        {
+          username: id,
+          body: newpost,
+        },
+        +param,
+      ])
     );
     dispatch(openEditHandler());
   };
@@ -48,15 +52,16 @@ function MatchPage() {
   const onStoreItemNum = (id) => {
     setNumid(id);
   };
+
   useEffect(() => {
     dispatch(__thatMatchPosts(gameId));
   }, []);
-  
+
   return (
     <Matchpagebackground>
-      <MainHeader gameId={gameId}/>
+      <MainHeader gameId={gameId} />
       <MainStBox>
-        <MatchHeader gameId = {gameId}></MatchHeader>
+        <MatchHeader gameId={gameId}></MatchHeader>
         <MatchContainer>
           {posts.map((item) => {
             return (
@@ -107,6 +112,7 @@ function MatchPage() {
                     marginRight: "20px",
                   }}
                 >
+                  <ReplyButton>댓글</ReplyButton>
                   <EditButton
                     onClick={() => {
                       dispatch(openEditHandler());
@@ -182,7 +188,7 @@ const Matchpagebackground = styled.div`
   background-size: cover;
   size: 100vh;
   height: 100%;
-`
+`;
 const EditButton = styled.div`
   width: 50px;
   height: 50px;
@@ -199,18 +205,18 @@ const EditButton = styled.div`
   :active {
     background-color: #787878;
   }
-`
+`;
 const STdiv = styled.div`
   height: 500px;
   width: 300px;
   background-color: #ffffff;
   border-radius: 12px;
   padding: 20px;
-`
+`;
 
 const MainStBox = styled.div`
   min-width: 100px;
   width: 1000px;
   padding-top: 50px;
   justify-content: center;
-`
+`;

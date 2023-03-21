@@ -5,10 +5,12 @@ import { cookies } from "../../shared/cookies";
 const MainHeader = () => {
   const token = cookies.get("token");
   const navi = useNavigate();
+
   const delHandler = () => {
     cookies.remove("token");
     cookies.remove("userId");
     navi("/");
+    window.location.reload();
   };
 
   return (
@@ -16,9 +18,15 @@ const MainHeader = () => {
       {token ? (
         <>
           <Mdiv onClick={() => navi("/")}>⚽️ GotChuck</Mdiv>
-          <Fontdiv>FotMob</Fontdiv>
-          <Fontdiv>Naver Sports</Fontdiv>
-          <Fontdiv>Youtube Estar TV</Fontdiv>
+          <Fonta href="https://www.fotmob.com/" target="_blank">
+            FotMob
+          </Fonta>
+          <Fonta href="https://sports.news.naver.com/index" target="_blank">
+            Naver Sports
+          </Fonta>
+          <Fonta href="https://www.youtube.com/@leestartv" target="_blank">
+            Youtube Estar TV
+          </Fonta>
           <div style={{ display: "flex", gap: "15px" }}>
             <Fontdiv>{cookies.get("userId")} 님 안녕하세요</Fontdiv>
             <Fontdiv
@@ -33,9 +41,15 @@ const MainHeader = () => {
       ) : (
         <>
           <Mdiv onClick={() => navi("/")}>⚽️ GotChuck</Mdiv>
-          <Fontdiv>FotMob</Fontdiv>
-          <Fontdiv>Naver Sports</Fontdiv>
-          <Fontdiv>Youtube Estar TV</Fontdiv>
+          <Fonta href="https://www.fotmob.com/" target="_blank">
+            FotMob
+          </Fonta>
+          <Fonta href="https://sports.news.naver.com/index" target="_blank">
+            Naver Sports
+          </Fonta>
+          <Fonta href="https://www.youtube.com/@leestartv" target="_blank">
+            Youtube Estar TV
+          </Fonta>
           <div style={{ display: "flex", gap: "15px" }}>
             <Fontdiv onClick={() => navi("/login")}>로그인</Fontdiv>
             <Fontdiv onClick={() => navi("/signup")}>회원가입</Fontdiv>
@@ -49,13 +63,13 @@ const MainHeader = () => {
 export default MainHeader;
 
 const Wrapper = styled.div`
-    padding-left: 30px;
-    padding-right: 40px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    width:100vw;
-`
+  padding-left: 30px;
+  padding-right: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100vw;
+`;
 
 const STdiv = styled.div`
   font-family: "IBMPlexSansKR-Regular";
@@ -68,13 +82,24 @@ const STdiv = styled.div`
   gap: 30px;
   color: white;
 `;
+
+const Fonta = styled.a`
+  font-size: 25px;
+  margin-top: 10px;
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+`;
+
 const Fontdiv = styled.div`
   font-size: 25px;
   margin-top: 10px;
+  cursor: pointer;
 `;
 
 const Mdiv = styled.div`
   font-size: 40px;
   font-weight: 600;
   padding-right: 30px;
+  cursor: pointer;
 `;

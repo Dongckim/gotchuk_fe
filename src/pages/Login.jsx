@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import MainHeader from "../components/MainComponents/MainHeader";
-import { __loginUser } from "../redux/modules/login";
+import { tokenHandler, __loginUser } from "../redux/modules/login";
+import { cookies } from "../shared/cookies";
 
 const LoginStyle = styled.div`
   height: 100vh;
@@ -58,6 +59,7 @@ function Login() {
   const navigate = useNavigate();
 
   const { isLogin } = useSelector((state) => state.users);
+  const token = cookies.get("token");
 
   useEffect(() => {
     if (isLogin) {
@@ -68,15 +70,14 @@ function Login() {
       // second
     };
   }, []);
-
   return (
     <>
       <MainHeader />
       <LoginStyle>
         <LoginBox
-          onSubmit={(e) => {
+          onSubmit={async (e) => {
             e.preventDefault();
-            dispacth(__loginUser(user));
+            await dispacth(__loginUser(user));
             navigate("/");
           }}
         >
