@@ -22,7 +22,7 @@ import { getCookie } from "../shared/cookies";
 import { replyHandler, __addReply, __getReply } from "../redux/modules/reply";
 
 function MatchPage() {
-  const { gameId } = useParams();
+  const {gameId} = useParams();
   const dispatch = useDispatch();
   const { posts, isShow, isShowEdit } = useSelector((state) => state.match);
   const { isShowReply } = useSelector((state) => state.reply);
@@ -58,16 +58,15 @@ function MatchPage() {
   const onStoreItemNum = (id) => {
     setNumid(id);
   };
-
   useEffect(() => {
     dispatch(__thatMatchPosts(gameId));
   }, []);
-
+  
   return (
     <Matchpagebackground>
-      <MainHeader gameId={gameId} />
+      <MainHeader gameId={gameId}/>
       <MainStBox>
-        <MatchHeader gameId={gameId}></MatchHeader>
+        <MatchHeader gameId = {gameId}></MatchHeader>
         <MatchContainer>
           {posts.map((item) => {
             return (
@@ -240,7 +239,7 @@ const Matchpagebackground = styled.div`
   background-size: cover;
   size: 100vh;
   height: 100%;
-`;
+`
 const EditButton = styled.div`
   width: 50px;
   height: 50px;
@@ -257,18 +256,18 @@ const EditButton = styled.div`
   :active {
     background-color: #787878;
   }
-`;
+`
 const STdiv = styled.div`
   height: 500px;
   width: 300px;
   background-color: #ffffff;
   border-radius: 12px;
   padding: 20px;
-`;
+`
 
 const MainStBox = styled.div`
   min-width: 100px;
   width: 1000px;
   padding-top: 50px;
   justify-content: center;
-`;
+`
