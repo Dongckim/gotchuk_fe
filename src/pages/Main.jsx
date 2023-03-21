@@ -26,47 +26,6 @@ const Main = () => {
 
   return (
     <>
-<<<<<<< HEAD
-      {token ? (
-        <>
-          <MainHeader />
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignContent: "center",
-              backgroundColor: "red",
-            }}
-          >
-            <MainStBox>
-              <div>
-                <div key={gameList.gameId}>
-                  {gameList.map((item) => {
-                    return <Card key={item.gameId} gameList={item} />;
-                  })}
-                </div>
-              </div>
-            </MainStBox>
-          </div>
-        </>
-      ) : (
-        <>
-          <MainHeader />
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignContent: "center",
-              backgroundColor: "red",
-            }}
-          >
-            <MainStBox>
-              <h2>로그인 시 경기 정보를 볼 수 있습니다</h2>
-            </MainStBox>
-          </div>
-        </>
-      )}
-=======
       <MainHeader/>
         {isToken?(
           <Wrapper theme={'login-done'}>
@@ -81,7 +40,6 @@ const Main = () => {
           </MainStBox>
         </Wrapper>
         ): <Wrapper theme={'login'}/>}
->>>>>>> master
     </>
   
   );
