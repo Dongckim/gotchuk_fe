@@ -18,22 +18,36 @@ import Profile from "../MatchComponents/Profile";
 import { RxTrash, RxUpdate } from "react-icons/rx";
 import { useParams } from "react-router-dom";
 import MainHeader from "../components/MainComponents/MainHeader";
+<<<<<<< HEAD
 import ReplyButton from "./replycomponents/ReplyButton";
+=======
+import { getCookie } from "../shared/cookies";
+>>>>>>> master
 
 function MatchPage() {
   const { gameId } = useParams();
   const dispatch = useDispatch();
+<<<<<<< HEAD
   const { posts, isShow, isShowEdit } = useSelector((state) => state.match);
   const { param } = useSelector((state) => state.match);
+=======
+  const { posts, isShow, isShowEdit, commentId } = useSelector((state) => state.match);
+  const {param} = useSelector(state => state.match)
+>>>>>>> master
   const [newpost, setNewpost] = useState("");
   const [numid, setNumid] = useState("");
   const value = posts.find((item) => item.id == numid)?.body;
 
+<<<<<<< HEAD
   console.log(gameId);
 
+=======
+>>>>>>> master
   const onSubmitHandler = (event, id) => {
+    const token = getCookie('userId')
     event.preventDefault();
     dispatch(
+<<<<<<< HEAD
       __EditBody([
         {
           username: id,
@@ -41,6 +55,13 @@ function MatchPage() {
         },
         +param,
       ])
+=======
+      __EditBody([{
+        id:numid,
+        username : token,
+        body: newpost,
+      },+param])
+>>>>>>> master
     );
     dispatch(openEditHandler());
   };
@@ -76,7 +97,7 @@ function MatchPage() {
                     }}
                   >
                     <Profile />
-                    <span>{item.username}</span>
+                    <span style={{width:'80px', display:'flex', justifyContent:'center'}}>{item.username}</span>
                   </div>
                   <div
                     style={{
@@ -93,16 +114,21 @@ function MatchPage() {
                       }}
                     >
                       {item.body}
+                      </div>
+                      
+                      {(item.createdAt)?(
+                        <>
+                          <span style={{ fontSize: "11px" }}>
+                            {" "}
+                            작성시간 : {new Date(item.createdAt).toLocaleString()}
+                          </span>
+                          <span style={{ fontSize: "11px" }}>
+                            {" "}
+                            수정시간 : {item.modifiedAt}
+                          </span>
+                        </>
+                      ) : <span style={{fontSize:'10px'}}>새로고침하면 작성시간과 수정시간을 볼 수 있어요!</span>}
                     </div>
-                    <span style={{ fontSize: "11px" }}>
-                      {" "}
-                      작성시간 : {item.createdAt}
-                    </span>
-                    <span style={{ fontSize: "11px" }}>
-                      {" "}
-                      수정시간 : {item.modifiedAt}
-                    </span>
-                  </div>
                 </div>
                 <div
                   style={{

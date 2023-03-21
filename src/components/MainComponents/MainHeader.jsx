@@ -29,9 +29,10 @@ const MainHeader = () => {
           </Fonta>
           <div style={{ display: "flex", gap: "15px" }}>
             <Fontdiv>{cookies.get("userId")} 님 안녕하세요</Fontdiv>
-            <Fontdiv
+            <Fontdiv 
               onClick={(e) => {
                 delHandler(e);
+                navi("/")
               }}
             >
               로그아웃
