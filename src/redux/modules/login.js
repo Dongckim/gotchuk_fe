@@ -8,6 +8,7 @@ const initialState = {
     users : [],
     error:null,
     isLogin:false,
+    token:false,
 }
 
 // export const __addUser = createAsyncThunk(
@@ -21,6 +22,7 @@ const initialState = {
 //         }
 //     }
 // )
+
 
 export const __loginUser = createAsyncThunk(
     "loginUser",
@@ -50,7 +52,7 @@ export const userSlice = createSlice({
         [__loginUser.fulfilled] : (state, action) => {
             state.isLogin = true;
             state.users = action.payload
-            alert('Welcome to 가축 World!!');
+            alert("Welcome to 가축 World!!");
         },
         [__loginUser.rejected] : (state, action) => {
             state.isLogin = false;
