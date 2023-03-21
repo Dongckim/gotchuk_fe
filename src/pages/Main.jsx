@@ -26,22 +26,46 @@ const Main = () => {
 
   return (
     <>
-      <MainHeader/>
-        {isToken?(
-          <Wrapper theme={'login-done'}>
+      {token ? (
+        <>
+          <MainHeader />
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignContent: "center",
+              backgroundColor: "red",
+            }}
+          >
             <MainStBox>
-            <div>
-              <div key={gameList.id}>
-                {gameList.map((item) => {
-                  return <Card key={item.id} gameList={item} />;
-                })}
+              <div>
+                <div key={gameList.gameId}>
+                  {gameList.map((item) => {
+                    return <Card key={item.gameId} gameList={item} />;
+                  })}
+                </div>
               </div>
-            </div>
-          </MainStBox>
-        </Wrapper>
-        ): <Wrapper theme={'login'}/>}
+            </MainStBox>
+          </div>
+        </>
+      ) : (
+        <>
+          <MainHeader />
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignContent: "center",
+              backgroundColor: "red",
+            }}
+          >
+            <MainStBox>
+              <h2>로그인 시 경기 정보를 볼 수 있습니다</h2>
+            </MainStBox>
+          </div>
+        </>
+      )}
     </>
-  
   );
 };
 

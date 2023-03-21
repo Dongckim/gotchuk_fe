@@ -8,7 +8,6 @@ import {
   openEditHandler,
   __DeleteBody,
   __EditBody,
-  __postBody,
   __thatMatchPosts,
 } from "../redux/modules/match";
 import MatchPostToggle from "../MatchComponents/MatchPostToggle";
@@ -18,26 +17,36 @@ import Profile from "../MatchComponents/Profile";
 import { RxTrash, RxUpdate } from "react-icons/rx";
 import { useParams } from "react-router-dom";
 import MainHeader from "../components/MainComponents/MainHeader";
+import ReplyButton from "./replycomponents/ReplyButton";
 import { getCookie } from "../shared/cookies";
+import { replyHandler, __addReply, __getReply } from "../redux/modules/reply";
 
 function MatchPage() {
   const {gameId} = useParams();
   const dispatch = useDispatch();
   const { posts, isShow, isShowEdit } = useSelector((state) => state.match);
-  const {param} = useSelector(state => state.match)
+  const { isShowReply } = useSelector((state) => state.reply);
+  const { param } = useSelector((state) => state.match);
   const [newpost, setNewpost] = useState("");
   const [numid, setNumid] = useState("");
+  const [reply, setReply] = useState("");
+  const replyData = { body: reply, param: Number(param), commentId: numid };
   const value = posts.find((item) => item.id == numid)?.body;
 
+  console.log("---------", numid);
+
   const onSubmitHandler = (event, id) => {
-    const token = getCookie('userId')
+    const token = getCookie("userId");
     event.preventDefault();
     dispatch(
-      __EditBody([{
-        id:numid,
-        username : token,
-        body: newpost,
-      },+param])
+      __EditBody([
+        {
+          id: numid,
+          username: token,
+          body: newpost,
+        },
+        +param,
+      ])
     );
     dispatch(openEditHandler());
   };
@@ -72,7 +81,15 @@ function MatchPage() {
                     }}
                   >
                     <Profile />
-                    <span style={{width:'80px', display:'flex', justifyContent:'center'}}>{item.username}</span>
+                    <span
+                      style={{
+                        width: "80px",
+                        display: "flex",
+                        justifyContent: "center",
+                      }}
+                    >
+                      {item.username}
+                    </span>
                   </div>
                   <div
                     style={{
@@ -89,21 +106,44 @@ function MatchPage() {
                       }}
                     >
                       {item.body}
-                      </div>
-                      
-                      {(item.createdAt)?(
-                        <>
-                          <span style={{ fontSize: "11px" }}>
-                            {" "}
-                            작성시간 : {new Date(item.createdAt).toLocaleString()}
-                          </span>
-                          <span style={{ fontSize: "11px" }}>
-                            {" "}
-                            수정시간 : {item.modifiedAt}
-                          </span>
-                        </>
-                      ) : <span style={{fontSize:'10px'}}>새로고침하면 작성시간과 수정시간을 볼 수 있어요!</span>}
                     </div>
+
+                    {item.createdAt ? (
+                      <>
+                        <span style={{ fontSize: "11px" }}>
+                          {" "}
+                          작성시간 : {new Date(item.createdAt).toLocaleString()}
+                        </span>
+                        <span style={{ fontSize: "11px" }}>
+                          {" "}
+                          수정시간 : {item.modifiedAt}
+                        </span>
+                        {isShowReply && numid == item.id ? (
+                          <div>
+                            댓글 입력 :{" "}
+                            <input
+                              style={{ width: "70%" }}
+                              value={reply}
+                              onChange={(e) => {
+                                setReply(e.target.value);
+                              }}
+                            />
+                            <button
+                              onClick={() => {
+                                dispatch(__addReply(replyData));
+                              }}
+                            >
+                              완료
+                            </button>
+                          </div>
+                        ) : null}
+                      </>
+                    ) : (
+                      <span style={{ fontSize: "10px" }}>
+                        새로고침하면 작성시간과 수정시간을 볼 수 있어요!
+                      </span>
+                    )}
+                  </div>
                 </div>
                 <div
                   style={{
@@ -113,6 +153,17 @@ function MatchPage() {
                     marginRight: "20px",
                   }}
                 >
+                  <ReplyButton
+                    onClick={async () => {
+                      dispatch(replyHandler());
+                      setNumid(item.id);
+                      dispatch(
+                        __getReply({ ...replyData, commentId: item.id })
+                      );
+                    }}
+                  >
+                    댓글
+                  </ReplyButton>
                   <EditButton
                     onClick={() => {
                       dispatch(openEditHandler());
