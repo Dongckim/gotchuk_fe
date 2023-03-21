@@ -24,26 +24,22 @@ const Main = () => {
 
   return (
     <>
-      <MainHeader />
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignContent: "center",
-          backgroundColor: "red",
-        }}
-      >
-        <MainStBox>
-          <div>
-            <div key={gameList.id}>
-              {gameList.map((item) => {
-                return <Card key={item.id} gameList={item} />;
-              })}
+      <MainHeader/>
+        {isToken?(
+          <Wrapper theme={'login-done'}>
+            <MainStBox>
+            <div>
+              <div key={gameList.id}>
+                {gameList.map((item) => {
+                  return <Card key={item.id} gameList={item} />;
+                })}
+              </div>
             </div>
-          </div>
-        </MainStBox>
-      </div>
+          </MainStBox>
+        </Wrapper>
+        ): <Wrapper theme={'login'}/>}
     </>
+  
   );
 };
 

@@ -7,6 +7,7 @@ const initialState = {
     match : [],
     posts : [],
     param : [],
+    commentId : 0,
     error : null,
     isLogin : false,
     isShow : false,
@@ -17,7 +18,6 @@ export const __thatMatch = createAsyncThunk(
     "thatMatch",
     async (gameId, thunk) => {
         try{
-            console.log(gameId)
             const token = getCookie('token')
             const { data } = await api.get(`api/games/${gameId}`,{
                 headers : {
@@ -52,16 +52,16 @@ export const __thatMatchPosts = createAsyncThunk(
 export const __postBody = createAsyncThunk(
     'postBody',
     async(payload, thunk) => {
+        const {gameId, body} = payload
         try{
             const token = getCookie('token')
-            console.log('sss',payload)
-            const response = await api.post(`api/games/${payload[1]}/comments`,payload[0],{
+            const response = await api.post(`api/games/${gameId}/comments`,body,{
                 headers : {
                     Authorization: `Bearer ${token}`
                 }
             })
-            console.log(response)
-            return thunk.fulfillWithValue(payload[0])
+            await thunk.dispatch(__thatMatchPosts(gameId));
+            return response
         }catch(error){
             return thunk.rejectWithValue(error)
         }
@@ -72,14 +72,16 @@ export const __EditBody = createAsyncThunk(
     'EditBody',
     async(payload, thunk) => {
         try{
+            console.log(payload)
             const token = getCookie('token')
-            const response = await api.patch(`api/games/${payload[1]}/comments/${payload[0].username}`,payload[0],{
+            await api.patch(`api/games/${payload[1]}/comments/${payload[0].id}`,payload[0],{
                 headers : {
                     Authorization: `Bearer ${token}`
                 }
             })
             return thunk.fulfillWithValue(payload[0])
         }catch(error){
+            alert('당신 댓글 맞아?')
             return thunk.rejectWithValue(error)
         }
     }
@@ -88,14 +90,19 @@ export const __EditBody = createAsyncThunk(
 export const __DeleteBody = createAsyncThunk(
     "DeleteBody",
     async(payload, thunk) => {
-        const token = getCookie('token')
-        await api.delete(`api/games/${payload[1]}/comments/${payload[0]}`,{
-            headers : {
-                Authorization: `Bearer ${token}`
-            }
-        })
-        return thunk.fulfillWithValue(payload[0])
-    }
+        try{const token = getCookie('token')
+            const response = await api.delete(`api/games/${payload[1]}/comments/${payload[0]}`,{
+                headers : {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+        return thunk.fulfillWithValue(payload[0])}
+        catch(error){
+            alert('당신 댓글 맞아?')
+        }
+    } 
+    
+    
 )
 
 export const matchSlice = createSlice({
@@ -118,12 +125,13 @@ export const matchSlice = createSlice({
         state.posts = action.payload
     },
     [__postBody.fulfilled] : (state, action) => {
-        state.posts = [...state.posts, action.payload]
+        // state.posts = [action.payload[0], ...state.posts]
+        // state.commentId = action.payload[1]
     },
     [__EditBody.fulfilled] : (state,action) => {
         state.posts = state.posts.map((item)=> {
-            if(item.id==action.payload.username){
-                item.body = action.payload.body
+            if( item.id == action.payload.id){
+                item = action.payload
                 return item
             }else{
                 return item

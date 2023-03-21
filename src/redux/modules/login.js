@@ -26,7 +26,7 @@ export const __loginUser = createAsyncThunk(
     "loginUser",
     async(thatUser, thunk)=> {
         try{
-            const response = await api.post('/api/user/login/',thatUser)
+            const response = await api.post('/api/user/',thatUser)
             console.log(response)
              const token = response.headers.authorization
              const newtoken = token.split(" ")[1]
