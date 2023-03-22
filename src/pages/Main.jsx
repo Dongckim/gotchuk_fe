@@ -69,12 +69,12 @@ const Wrapper = styled.div`
   padding-bottom: 120px;
   display: flex;
   justify-content: center;
-  background-size: cover;
   ${({ theme }) => {
     switch (theme) {
       case "login":
         return css`
           height:100vh;
+          background-size: cover;
           background-image: linear-gradient(
               0deg,
               rgba(0, 0, 0, 0.5),
@@ -84,13 +84,16 @@ const Wrapper = styled.div`
         `;
       case "login-done":
         return css`
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
           height: 100%;
           background-image: linear-gradient(
               0deg,
               rgba(0, 0, 0, 0.5),
               rgba(0, 0, 0, 0.5)
             ),
-            url("https://pds.joongang.co.kr/news/FbMetaImage/202211/8eef9124-4d08-4b24-8cf6-40a1fc0ead23.jpg");
+            url("https://assets.goal.com/v3/assets/bltcc7a7ffd2fbf71f5/blt0d1696fed0486d28/63862792b59ca66130917551/GettyImages-1445272220.jpg?auto=webp&format=jpg&quality=100");
         `;
     }
   }}

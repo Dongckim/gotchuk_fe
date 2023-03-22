@@ -18,9 +18,8 @@ export const __addReply = createAsyncThunk(
                   Authorization: `Bearer ${token}`
               }
           })
-          console.log(response) 
-          await thunk.dispatch(__getReply())
-          return response
+        await thunk.dispatch(__getReply({param : payload.param, commentId:payload.commentId}))
+        return response
       }catch(error){
           return thunk.rejectWithValue(error)
       }

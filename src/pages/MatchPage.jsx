@@ -64,7 +64,8 @@ function MatchPage() {
   };
   useEffect(() => {
     dispatch(__thatMatchPosts(gameId));
-  }, []);
+    dispatch(__getReply(gameId))
+  }, [dispatch, gameId]);
   
   return (
     <Matchpagebackground>
@@ -109,7 +110,9 @@ function MatchPage() {
                         width: "500px",
                       }}
                     >
-                      {item.body}
+                      <div style={{paddingTop:'10px'}}>
+                        {item.body}
+                      </div>
                     </div>
 
                     {item.createdAt ? (
@@ -126,24 +129,33 @@ function MatchPage() {
                           <div>
                             <div>
                               {replyList.map((item)=> {
-                                return <div>{item.body}</div>
+                                return (
+                                <div style={{marginTop:'8px'}}>
+                                  ↳ {'  '}
+                                <span style={{fontSize:'12px'}}>{item.username}</span>
+                                <span>:</span>
+                                <span style={{fontSize:'16px'}}>{item.body}</span>
+                                </div>)
                               })}
                             </div>
-                            댓글 입력 :{" "}
-                            <input
-                              style={{ width: "70%" }}
-                              value={reply}
-                              onChange={(e) => {
-                                setReply(e.target.value);
-                              }}
-                            />
-                            <button
-                              onClick={() => {
-                                dispatch(__addReply(replyData));
-                              }}
-                            >
-                              완료
-                            </button>
+                            <div style={{width:'100%', margin:'10px 0 10px 0'}}>
+                              <input
+                                style={{ width: "80%" }}
+                                value={reply}
+                                onChange={(e) => {
+                                  setReply(e.target.value);
+                                }}
+                              />
+                              <button
+                                style={{marginLeft:'10px'}}
+                                onClick={() => {
+                                  dispatch(__addReply(replyData));
+                                }}
+                              >
+                                완료
+                              </button>
+                            </div>
+                            
                           </div>
                         ) : null}
                       </>
