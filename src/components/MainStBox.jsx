@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const MainStBox = styled.div`
     min-width: 100px;
-    width: 1000px;
+    width: 1700px;
     padding-top: 300px;
     display: flex;
     justify-content: center;
