@@ -27,16 +27,8 @@ const Main = () => {
   return (
     <>
       {token ? (
-        <>
+        <Wrapper theme={'login-done'}>
           <MainHeader />
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignContent: "center",
-              backgroundColor: "red",
-            }}
-          >
             <MainStBox>
               <div>
                 <div key={gameList.gameId}>
@@ -46,24 +38,18 @@ const Main = () => {
                 </div>
               </div>
             </MainStBox>
-          </div>
-        </>
+        </Wrapper>
       ) : (
-        <>
+        <Wrapper theme={'login'}>
           <MainHeader />
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignContent: "center",
-              backgroundColor: "red",
-            }}
-          >
-            <MainStBox>
-              <h2>로그인 시 경기 정보를 볼 수 있습니다</h2>
-            </MainStBox>
-          </div>
-        </>
+          <MainStBox>
+            <div style={{display:'flex', flexDirection:'column',alignItems:'center', paddingTop:'200px'}}>
+              <MainStr style={{fontSize:'90px'}}>영광의 순간을 지금 바로 함께하세요.</MainStr>
+              <MainStr>Communicate the moment of glory with 'Gotchuck' members  </MainStr>
+              <MainStr>in real time now! </MainStr>
+            </div>
+          </MainStBox>
+        </Wrapper>
       )}
     </>
   );
@@ -71,32 +57,42 @@ const Main = () => {
 
 export default Main;
 
+const MainStr = styled.div`
+  /* font-family: 'Helventica'; */
+  font-weight: 600;
+  font-size: 50px;
+  color: #ffffff;
+  text-shadow: 8px 8px 10px gray; 
+ `
+
 const Wrapper = styled.div`
+  padding-bottom: 120px;
   display: flex;
   justify-content: center;
-  height: 100vh;
-
   background-size: cover;
   ${({ theme }) => {
     switch (theme) {
       case "login":
         return css`
+          height:100vh;
           background-image: linear-gradient(
               0deg,
               rgba(0, 0, 0, 0.5),
               rgba(0, 0, 0, 0.5)
             ),
-            url("https://cdn.huffingtonpost.kr/news/photo/202212/205184_313527_2918.jpg");
+            url("https://dimg.donga.com/wps/NEWS/IMAGE/2022/12/03/116823334.2.jpg");
         `;
       case "login-done":
         return css`
+          height: 100%;
           background-image: linear-gradient(
               0deg,
               rgba(0, 0, 0, 0.5),
               rgba(0, 0, 0, 0.5)
             ),
-            url("https://dispatch.cdnser.be/cms-content/uploads/2022/12/09/1fb0820b-4510-47cc-881c-46942481a540.jpg");
+            url("https://pds.joongang.co.kr/news/FbMetaImage/202211/8eef9124-4d08-4b24-8cf6-40a1fc0ead23.jpg");
         `;
     }
   }}
 `;
+ 
