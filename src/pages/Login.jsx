@@ -19,8 +19,8 @@ const LoginStyle = styled.div`
 `;
 
 const LoginBox = styled.form`
-  width: 300px; /*박스의 가로 크기*/
-  height: 300px; /*박스의 세로 크기*/
+  width: 350px; /*박스의 가로 크기*/
+  height: 370px; /*박스의 세로 크기*/
   position: absolute; /*박스의 위치를 설정하기 위해 position 속성을 사용합니다*/
   top: 50%; /*화면의 세로 중앙*/
   left: 50%; /*화면의 가로 중앙*/

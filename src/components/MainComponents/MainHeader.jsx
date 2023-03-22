@@ -17,17 +17,20 @@ const MainHeader = () => {
     <STdiv>
       {token ? (
         <>
-          <Mdiv onClick={() => navi("/")}>⚽️ GotChuck</Mdiv>
-          <Fonta href="https://www.fotmob.com/" target="_blank">
-            FotMob
-          </Fonta>
-          <Fonta href="https://sports.news.naver.com/index" target="_blank">
-            Naver Sports
-          </Fonta>
-          <Fonta href="https://www.youtube.com/@leestartv" target="_blank">
-            Youtube Estar TV
-          </Fonta>
-          <div style={{ display: "flex", gap: "15px" }}>
+        <div style={{display:'flex', justifyContent:'space-between', width:'100vw',margin:'50px', paddingTop:'40px', alignItems:'center'}}>
+          <div style={{display:'flex', alignItems:'center', gap:'50px'}}>
+            <Mdiv onClick={() => navi("/")}>⚽️ GotChuck</Mdiv>
+            <Fonta href="https://www.fotmob.com/" target="_blank">
+              FotMob
+            </Fonta>
+            <Fonta href="https://sports.news.naver.com/wfootball/index" target="_blank">
+              Naver Sports
+            </Fonta>
+            <Fonta href="https://www.youtube.com/@leestartv" target="_blank">
+              Youtube Estar TV
+            </Fonta>
+          </div>
+          <div style={{ display: "flex", gap: "15px"}}>
             <Fontdiv>{cookies.get("userId")} 님 안녕하세요</Fontdiv>
             <Fontdiv 
               onClick={(e) => {
@@ -38,24 +41,28 @@ const MainHeader = () => {
               로그아웃
             </Fontdiv>
           </div>
+        </div>
+          
         </>
       ) : (
-        <>
-          <Mdiv onClick={() => navi("/")}>⚽️ GotChuck</Mdiv>
-          <Fonta href="https://www.fotmob.com/" target="_blank">
-            FotMob
-          </Fonta>
-          <Fonta href="https://sports.news.naver.com/index" target="_blank">
-            Naver Sports
-          </Fonta>
-          <Fonta href="https://www.youtube.com/@leestartv" target="_blank">
-            Youtube Estar TV
-          </Fonta>
-          <div style={{ display: "flex", gap: "15px" }}>
+        <div style={{display:'flex', justifyContent:'space-between', width:'100vw',margin:'50px', paddingTop:'40px', alignItems:'center'}}>
+          <div style={{display:'flex', alignItems:'center', gap:'50px'}}>
+            <Mdiv onClick={() => navi("/")}>⚽️ GotChuck</Mdiv>
+            <Fonta href="https://www.fotmob.com/" target="_blank">
+              FotMob
+            </Fonta>
+            <Fonta href="https://sports.news.naver.com/index" target="_blank">
+              Naver Sports
+            </Fonta>
+            <Fonta href="https://www.youtube.com/@leestartv" target="_blank">
+              Youtube Estar TV
+            </Fonta>
+          </div>
+          <div style={{ display: "flex", gap: "15px"}}>
             <Fontdiv onClick={() => navi("/login")}>로그인</Fontdiv>
             <Fontdiv onClick={() => navi("/signup")}>회원가입</Fontdiv>
           </div>
-        </>
+        </div>
       )}
     </STdiv>
   );
@@ -79,7 +86,6 @@ const STdiv = styled.div`
   width: 100vw;
   display: flex;
   align-items: center;
-  padding-left: 50px;
   gap: 30px;
   color: white;
 `;
@@ -89,18 +95,17 @@ const Fonta = styled.a`
   margin-top: 10px;
   text-decoration: none;
   color: white;
+  font-size: 30px;
   cursor: pointer;
 `;
 
 const Fontdiv = styled.div`
-  font-size: 25px;
-  margin-top: 10px;
+  font-size: 30px;
   cursor: pointer;
 `;
 
 const Mdiv = styled.div`
   font-size: 40px;
   font-weight: 600;
-  padding-right: 30px;
   cursor: pointer;
 `;

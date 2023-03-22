@@ -35,6 +35,10 @@ function MatchPage() {
 
   console.log("---------", numid);
 
+  const {replyList} = useSelector(state=> state.reply)
+  console.log(replyList)
+
+
   const onSubmitHandler = (event, id) => {
     const token = getCookie("userId");
     event.preventDefault();
@@ -116,10 +120,15 @@ function MatchPage() {
                         </span>
                         <span style={{ fontSize: "11px" }}>
                           {" "}
-                          수정시간 : {item.modifiedAt}
+                          수정시간 : {new Date(item.modifiedAt).toLocaleString()}
                         </span>
                         {isShowReply && numid == item.id ? (
                           <div>
+                            <div>
+                              {replyList.map((item)=> {
+                                return <div>{item.body}</div>
+                              })}
+                            </div>
                             댓글 입력 :{" "}
                             <input
                               style={{ width: "70%" }}
@@ -237,7 +246,7 @@ const Matchpagebackground = styled.div`
   justify-content: center;
   background-image: url("https://scontent-gmp1-1.xx.fbcdn.net/v/t1.6435-9/69358298_420705388576125_2524618687537741824_n.jpg?stp=dst-jpg_p960x960&_nc_cat=107&ccb=1-7&_nc_sid=36a2c1&_nc_ohc=nYGe-H2XhjgAX83WSim&_nc_ht=scontent-gmp1-1.xx&oh=00_AfBlLlpGegK_5SGvjJu3wyZ7-wE_f4qdbO-oAkDWCDyW5g&oe=643CFE7F");
   background-size: cover;
-  size: 100vh;
+  background-color: black;
   height: 100%;
 `
 const EditButton = styled.div`
