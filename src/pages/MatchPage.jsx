@@ -19,10 +19,17 @@ import { useParams } from "react-router-dom";
 import MainHeader from "../components/MainComponents/MainHeader";
 import ReplyButton from "./replycomponents/ReplyButton";
 import { getCookie } from "../shared/cookies";
-import { editReplyHandler, replyHandler, __addReply, __DeleteReply, __getReply } from "../redux/modules/reply";
+import {
+  editReplyHandler,
+  replyHandler,
+  __addReply,
+  __DeleteReply,
+  __getReply,
+  __EditReply,
+} from "../redux/modules/reply";
 
 function MatchPage() {
-  const {gameId} = useParams();
+  const { gameId } = useParams();
   const dispatch = useDispatch();
   const { posts, isShow, isShowEdit } = useSelector((state) => state.match);
   const { isShowReply } = useSelector((state) => state.reply);
@@ -35,9 +42,8 @@ function MatchPage() {
 
   console.log("---------", numid);
 
-  const {replyList, openEditReply } = useSelector(state=> state.reply)
-  console.log(replyList)
-
+  const { replyList, openEditReply } = useSelector((state) => state.reply);
+  console.log(replyList);
 
   const onSubmitHandler = (event, id) => {
     const token = getCookie("userId");
@@ -65,15 +71,12 @@ function MatchPage() {
   useEffect(() => {
     dispatch(__thatMatchPosts(gameId));
   }, []);
-  
+
   return (
     <Matchpagebackground>
       <MainHeader gameId={gameId} />
       <MainStBox>
-<<<<<<< HEAD
-=======
-      <MatchHeader gameId={gameId}></MatchHeader>
->>>>>>> master
+        <MatchHeader gameId={gameId}></MatchHeader>
         <MatchContainer>
           {posts.map((item) => {
             return (
@@ -112,9 +115,7 @@ function MatchPage() {
                         width: "500px",
                       }}
                     >
-                      <div style={{paddingTop:'10px'}}>
-                        {item.body}
-                      </div>
+                      <div style={{ paddingTop: "10px" }}>{item.body}</div>
                     </div>
 
                     {item.createdAt ? (
@@ -125,20 +126,26 @@ function MatchPage() {
                         </span>
                         <span style={{ fontSize: "11px" }}>
                           {" "}
-                          수정시간 : {new Date(item.modifiedAt).toLocaleString()}
+                          수정시간 :{" "}
+                          {new Date(item.modifiedAt).toLocaleString()}
                         </span>
                         {isShowReply && numid == item.id ? (
                           <div>
                             <div>
-                            {replyList.map((item) => {
+                              {replyList.map((item) => {
                                 return (
                                   <div>
-                                    <div style={{marginTop:'8px'}}>
-                                      ↳ {'  '}
-                                    <span style={{fontSize:'12px'}}>{item.username}</span>
-                                    <span>:</span>
-                                    <span style={{fontSize:'16px'}}>{item.body}</span>
-                                    </div>)
+                                    <div style={{ marginTop: "8px" }}>
+                                      ↳ {"  "}
+                                      <span style={{ fontSize: "12px" }}>
+                                        {item.username}
+                                      </span>
+                                      <span>:</span>
+                                      <span style={{ fontSize: "16px" }}>
+                                        {item.body}
+                                      </span>
+                                    </div>
+                                    )
                                     <button
                                       onClick={() => {
                                         dispatch(editReplyHandler());
@@ -300,7 +307,7 @@ const Matchpagebackground = styled.div`
   background-size: cover;
   background-color: black;
   height: 100%;
-`
+`;
 const EditButton = styled.div`
   width: 50px;
   height: 50px;
@@ -317,18 +324,18 @@ const EditButton = styled.div`
   :active {
     background-color: #787878;
   }
-`
+`;
 const STdiv = styled.div`
   height: 500px;
   width: 300px;
   background-color: #ffffff;
   border-radius: 12px;
   padding: 20px;
-`
+`;
 
 const MainStBox = styled.div`
   min-width: 100px;
   width: 1000px;
   padding-top: 50px;
   justify-content: center;
-`
+`;
