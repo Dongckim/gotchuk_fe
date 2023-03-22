@@ -75,9 +75,9 @@ export const STdiv = styled.div`
       case `container`:
         return css`
           margin-top: 50px;
-          height: 100%;
           flex-direction: column;
           justify-content: center;
+          margin-bottom: 100px;
         `;
     }
   }}
