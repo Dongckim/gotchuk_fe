@@ -19,7 +19,7 @@ import { useParams } from "react-router-dom";
 import MainHeader from "../components/MainComponents/MainHeader";
 import ReplyButton from "./replycomponents/ReplyButton";
 import { getCookie } from "../shared/cookies";
-import { replyHandler, __addReply, __getReply } from "../redux/modules/reply";
+import { editReplyHandler, replyHandler, __addReply, __DeleteReply, __getReply } from "../redux/modules/reply";
 
 function MatchPage() {
   const {gameId} = useParams();
@@ -35,7 +35,7 @@ function MatchPage() {
 
   console.log("---------", numid);
 
-  const {replyList} = useSelector(state=> state.reply)
+  const {replyList, openEditReply } = useSelector(state=> state.reply)
   console.log(replyList)
 
 
@@ -64,14 +64,13 @@ function MatchPage() {
   };
   useEffect(() => {
     dispatch(__thatMatchPosts(gameId));
-    dispatch(__getReply(gameId))
-  }, [dispatch, gameId]);
+  }, []);
   
   return (
     <Matchpagebackground>
-      <MainHeader gameId={gameId}/>
+      <MainHeader gameId={gameId} />
       <MainStBox>
-        <MatchHeader gameId = {gameId}></MatchHeader>
+      <MatchHeader gameId={gameId}></MatchHeader>
         <MatchContainer>
           {posts.map((item) => {
             return (
@@ -128,34 +127,72 @@ function MatchPage() {
                         {isShowReply && numid == item.id ? (
                           <div>
                             <div>
-                              {replyList.map((item)=> {
+                            {replyList.map((item) => {
                                 return (
-                                <div style={{marginTop:'8px'}}>
-                                  ↳ {'  '}
-                                <span style={{fontSize:'12px'}}>{item.username}</span>
-                                <span>:</span>
-                                <span style={{fontSize:'16px'}}>{item.body}</span>
-                                </div>)
+                                  <div>
+                                    <div style={{marginTop:'8px'}}>
+                                      ↳ {'  '}
+                                    <span style={{fontSize:'12px'}}>{item.username}</span>
+                                    <span>:</span>
+                                    <span style={{fontSize:'16px'}}>{item.body}</span>
+                                    </div>)
+                                    <button
+                                      onClick={() => {
+                                        dispatch(editReplyHandler());
+                                      }}
+                                    >
+                                      수정
+                                    </button>
+                                    <button
+                                      onClick={() =>
+                                        dispatch(
+                                          __DeleteReply([replyData, item])
+                                        )
+                                      }
+                                    >
+                                      삭제
+                                    </button>
+                                  </div>
+                                );
                               })}
                             </div>
-                            <div style={{width:'100%', margin:'10px 0 10px 0'}}>
-                              <input
-                                style={{ width: "80%" }}
-                                value={reply}
-                                onChange={(e) => {
-                                  setReply(e.target.value);
-                                }}
-                              />
-                              <button
-                                style={{marginLeft:'10px'}}
-                                onClick={() => {
-                                  dispatch(__addReply(replyData));
-                                }}
-                              >
-                                완료
-                              </button>
-                            </div>
-                            
+                            {openEditReply ? (
+                              <div>
+                                댓글 수정 :{" "}
+                                <input
+                                  style={{ width: "70%" }}
+                                  value={reply}
+                                  onChange={(e) => {
+                                    setReply(e.target.value);
+                                  }}
+                                />
+                                <button
+                                  onClick={() => {
+                                    dispatch(__EditReply([replyData, item]));
+                                  }}
+                                >
+                                  수정완료
+                                </button>
+                              </div>
+                            ) : (
+                              <div>
+                                댓글 입력 :{" "}
+                                <input
+                                  style={{ width: "70%" }}
+                                  value={reply}
+                                  onChange={(e) => {
+                                    setReply(e.target.value);
+                                  }}
+                                />
+                                <button
+                                  onClick={() => {
+                                    dispatch(__addReply(replyData));
+                                  }}
+                                >
+                                  완료
+                                </button>
+                              </div>
+                            )}
                           </div>
                         ) : null}
                       </>
