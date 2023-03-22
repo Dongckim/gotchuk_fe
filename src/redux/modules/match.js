@@ -53,7 +53,6 @@ export const __postBody = createAsyncThunk(
     'postBody',
     async(payload, thunk) => {
         const { gameId, body } = payload
-
         try{
             const token = getCookie('token')
             const response = await api.post(`api/games/${gameId}/comments`,body,{
