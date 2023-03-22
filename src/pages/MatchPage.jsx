@@ -76,7 +76,6 @@ function MatchPage() {
     <Matchpagebackground>
       <MainHeader gameId={gameId} />
       <MainStBox>
-        <MatchHeader gameId={gameId}></MatchHeader>
         <MatchContainer>
           {posts.map((item) => {
             return (
