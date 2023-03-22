@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import api from "../../axios/api";
+import { getCookie } from "../../shared/cookies";
 
 
 const initialState = {
@@ -7,6 +8,23 @@ const initialState = {
     error:null,
     isLogin:false,
 }
+
+export const __postlogout = createAsyncThunk(
+    'logout',
+    async (gameId, thunk) => {
+        try{
+            const token = getCookie('token')
+            const { data } = await api.post(`api/login/`,{
+                headers : {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            return data
+        }catch(error){
+            return thunk.rejectWithValue(error)
+        }
+    }
+);
 
 export const __getgame = createAsyncThunk(
     'gamelist',
