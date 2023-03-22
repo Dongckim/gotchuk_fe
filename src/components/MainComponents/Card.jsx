@@ -27,12 +27,12 @@ function Card(props) {
     <Stbox>
       <Cardbox>
         <Wrapper>
-        <label style={{width:'500px', fontWeight:'700', display:'flex', justifyContent:'center'}}>
-          {list.teamA} {list.scoreA}골
+        <label style={{width:'500px', fontWeight:'700', display:'flex', justifyContent:'center',alignItems:'center'}}>
+          <img src= {list.imageA}/> {list.teamA} {list.scoreA}골
         </label>
         <h2>vs</h2>
-        <label style={{width:'500px', fontWeight:'700' ,display:'flex', justifyContent:'center'}}>
-          {list.teamB} {list.scoreB}골
+        <label style={{width:'500px', fontWeight:'700' ,display:'flex', justifyContent:'center',alignItems:'center'}}>
+        <img src= {list.imageB}/>{list.teamB} {list.scoreB}골
         </label>
         </Wrapper>
         <STbutton 

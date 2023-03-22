@@ -7,6 +7,7 @@ const initialState = {
   isLogin : false,
   isShowReply : false,
   openEditReply : false,
+  ReplyId : 0,
 }
 
 //대댓글 추가
@@ -20,9 +21,8 @@ export const __addReply = createAsyncThunk(
                   Authorization: `Bearer ${token}`
               }
           })
-          console.log(response) 
           await thunk.dispatch(__getReply(payload))
-          return response
+          return thunk.fulfillWithValue(payload)
       }catch(error){
           return thunk.rejectWithValue(error)
       }
@@ -66,10 +66,10 @@ export const __DeleteReply = createAsyncThunk(
 export const __EditReply = createAsyncThunk(
     'EditReply',
     async(payload, thunk) => {
-        console.log(payload)
+      console.log(payload)
         try{
             const token = getCookie('token')
-            await api.patch(`/api/games/${payload[0].param}/comments/${payload[0].commentId}/reply/${payload[1].replyList[0].id}`
+            await api.patch(`/api/games/${payload[0].param}/comments/${payload[0].commentId}/reply/${payload[0].replyId}`
                 ,{body: payload[0].body,},{headers : {
                     Authorization: `Bearer ${token}`
                 }
@@ -93,6 +93,9 @@ export const replySlice = createSlice({
 
       editReplyHandler : (state, action)=>{
             state.openEditReply = !state.openEditReply
+      },
+      storeReplyId : (state,action) => {
+        state.ReplyId = action.payload
       }
   },
   extraReducers:{
@@ -102,7 +105,10 @@ export const replySlice = createSlice({
 
   [__DeleteReply.fulfilled] : (state, action) => {
     state.replyList = state.replyList.filter((item) => item.id !== action.payload)
-},
+  },
+  // [__addReply.fulfilled] : (state, action) => {
+  //   state.replyList = [...state.replyList, action.payload]
+  // },
 
 // [__EditReply.fulfilled] : (state,action) => {
 //     state.replyList = state.replyList.map((item)=> {
@@ -119,5 +125,5 @@ export const replySlice = createSlice({
 })
 
 
-export const {replyHandler, editReplyHandler} = replySlice.actions;
+export const {storeReplyId, replyHandler, editReplyHandler} = replySlice.actions;
 export default replySlice.reducer;

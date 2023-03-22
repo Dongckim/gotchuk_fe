@@ -93,7 +93,7 @@ const Wrapper = styled.div`
               rgba(0, 0, 0, 0.5),
               rgba(0, 0, 0, 0.5)
             ),
-            url("https://assets.goal.com/v3/assets/bltcc7a7ffd2fbf71f5/blt0d1696fed0486d28/63862792b59ca66130917551/GettyImages-1445272220.jpg?auto=webp&format=jpg&quality=100");
+            url("https://pds.joongang.co.kr/news/FbMetaImage/202211/8eef9124-4d08-4b24-8cf6-40a1fc0ead23.jpg");
         `;
     }
   }}
