@@ -1,10 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { cookies } from "../../shared/cookies";
+import { useDispatch } from "react-redux";
+import { __postlogout } from "../../redux/modules/main";
 
 const MainHeader = () => {
   const token = cookies.get("token");
   const navi = useNavigate();
+  const dispatch = useDispatch();
 
   const delHandler = () => {
     cookies.remove("token");
@@ -29,10 +32,11 @@ const MainHeader = () => {
           </Fonta>
           <div style={{ display: "flex", gap: "15px" }}>
             <Fontdiv>{cookies.get("userId")} 님 안녕하세요</Fontdiv>
-            <Fontdiv 
+            <Fontdiv
               onClick={(e) => {
                 delHandler(e);
-                navi("/")
+                dispatch(__postlogout());
+                navi("/");
               }}
             >
               로그아웃
