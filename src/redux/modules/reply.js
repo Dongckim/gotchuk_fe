@@ -6,8 +6,10 @@ const initialState = {
   replyList : [],
   isLogin : false,
   isShowReply : false,
+  openEditReply : false,
 }
 
+//대댓글 추가
 export const __addReply = createAsyncThunk(
   "addreply",
   async (payload, thunk) => {
@@ -19,7 +21,7 @@ export const __addReply = createAsyncThunk(
               }
           })
           console.log(response) 
-          await thunk.dispatch(__getReply())
+          await thunk.dispatch(__getReply(payload))
           return response
       }catch(error){
           return thunk.rejectWithValue(error)
@@ -27,6 +29,8 @@ export const __addReply = createAsyncThunk(
   }
 );
 
+
+//대댓글 조회
 export const __getReply = createAsyncThunk(
   "getreply",
   async({commentId, param}, thunk) => {
@@ -40,21 +44,80 @@ export const __getReply = createAsyncThunk(
   }
 );
 
+//대댓글 삭제
+export const __DeleteReply = createAsyncThunk(
+    "DeleteReply",
+    async(payload, thunk) => {
+        console.log("payload" , payload)
+        try{const token = getCookie('token')
+            const response = await api.delete(`/api/games/${payload[0].param}/comments/${payload[0].commentId}/reply/${payload[1].id}`,{
+                headers : {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+        return thunk.fulfillWithValue(payload[1].id)}
+        catch(error){
+            
+            alert('당신 대댓글 맞아?')
+        }
+    } 
+)
+//대댓글 수정
+export const __EditReply = createAsyncThunk(
+    'EditReply',
+    async(payload, thunk) => {
+        console.log(payload)
+        try{
+            const token = getCookie('token')
+            await api.patch(`/api/games/${payload[0].param}/comments/${payload[0].commentId}/reply/${payload[1].replyList[0].id}`
+                ,{body: payload[0].body,},{headers : {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            await thunk.dispatch(__getReply(payload[0]))
+        }catch(error){
+            alert('당신 댓글 맞아?')
+            return thunk.rejectWithValue(error)
+        }
+    }
+)
+
+
 export const replySlice = createSlice({
   name: 'reply',
   initialState,
   reducers:{
     replyHandler : (state, action) => {
           state.isShowReply= !state.isShowReply
+      },
+
+      editReplyHandler : (state, action)=>{
+            state.openEditReply = !state.openEditReply
       }
   },
   extraReducers:{
   [__getReply.fulfilled] : (state, action) => {
       state.replyList = action.payload
-  }
+  },
+
+  [__DeleteReply.fulfilled] : (state, action) => {
+    state.replyList = state.replyList.filter((item) => item.id !== action.payload)
+},
+
+// [__EditReply.fulfilled] : (state,action) => {
+//     state.replyList = state.replyList.map((item)=> {
+//         if( item.id == action.payload.id){
+//             item = action.payload
+//             return item
+//         }else{
+//             return item
+//         }
+//     })
+// },
+
   } 
 })
 
 
-export const {replyHandler, openEditHandler} = replySlice.actions;
+export const {replyHandler, editReplyHandler} = replySlice.actions;
 export default replySlice.reducer;
