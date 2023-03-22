@@ -15,6 +15,7 @@ import ModalLayout from "../MatchComponents/ModalLayout";
 import ModalContainer from "../MatchComponents/ModalContainer";
 import Profile from "../MatchComponents/Profile";
 import { RxTrash, RxUpdate } from "react-icons/rx";
+import { AiOutlineComment } from "react-icons/ai";
 import { useParams } from "react-router-dom";
 import MainHeader from "../components/MainComponents/MainHeader";
 import ReplyButton from "./replycomponents/ReplyButton";
@@ -22,10 +23,11 @@ import { getCookie } from "../shared/cookies";
 import {
   editReplyHandler,
   replyHandler,
+  storeReplyId,
   __addReply,
   __DeleteReply,
-  __getReply,
   __EditReply,
+  __getReply,
 } from "../redux/modules/reply";
 
 function MatchPage() {
@@ -39,11 +41,9 @@ function MatchPage() {
   const [reply, setReply] = useState("");
   const replyData = { body: reply, param: Number(param), commentId: numid };
   const value = posts.find((item) => item.id == numid)?.body;
-
-  console.log("---------", numid);
-
-  const { replyList, openEditReply } = useSelector((state) => state.reply);
-  console.log(replyList);
+  const { replyList, openEditReply, ReplyId } = useSelector(
+    (state) => state.reply
+  );
 
   const onSubmitHandler = (event, id) => {
     const token = getCookie("userId");
@@ -115,7 +115,7 @@ function MatchPage() {
                         width: "500px",
                       }}
                     >
-                      <div style={{ paddingTop: "10px" }}>{item.body}</div>
+                      <div style={{ paddingTop: "15px" }}>{item.body}</div>
                     </div>
 
                     {item.createdAt ? (
@@ -124,7 +124,9 @@ function MatchPage() {
                           {" "}
                           작성시간 : {new Date(item.createdAt).toLocaleString()}
                         </span>
-                        <span style={{ fontSize: "11px" }}>
+                        <span
+                          style={{ fontSize: "11px", marginBottom: "15px" }}
+                        >
                           {" "}
                           수정시간 :{" "}
                           {new Date(item.modifiedAt).toLocaleString()}
@@ -134,62 +136,116 @@ function MatchPage() {
                             <div>
                               {replyList.map((item) => {
                                 return (
-                                  <div>
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "space-between",
+                                    }}
+                                  >
                                     <div style={{ marginTop: "8px" }}>
                                       ↳ {"  "}
-                                      <span style={{ fontSize: "12px" }}>
+                                      <span
+                                        style={{
+                                          fontSize: "12px",
+                                          backgroundColor: "#7c7c7c",
+                                          padding: "5px",
+                                          borderRadius: "10px",
+                                          color: "white",
+                                          marginRight: "10px",
+                                        }}
+                                      >
                                         {item.username}
                                       </span>
-                                      <span>:</span>
                                       <span style={{ fontSize: "16px" }}>
                                         {item.body}
                                       </span>
                                     </div>
-                                    )
-                                    <button
-                                      onClick={() => {
-                                        dispatch(editReplyHandler());
-                                      }}
-                                    >
-                                      수정
-                                    </button>
-                                    <button
-                                      onClick={() =>
-                                        dispatch(
-                                          __DeleteReply([replyData, item])
-                                        )
-                                      }
-                                    >
-                                      삭제
-                                    </button>
+                                    <div>
+                                      <button
+                                        style={{
+                                          backgroundColor: "transparent",
+                                          border: "none",
+                                          cursor: "pointer",
+                                          fontWeight: "300",
+                                        }}
+                                        onClick={() => {
+                                          dispatch(storeReplyId(item.id));
+                                          dispatch(editReplyHandler());
+                                        }}
+                                      >
+                                        수정
+                                      </button>
+                                      <button
+                                        style={{
+                                          backgroundColor: "transparent",
+                                          border: "none",
+                                          cursor: "pointer",
+                                          fontWeight: "900",
+                                        }}
+                                        onClick={() =>
+                                          dispatch(
+                                            __DeleteReply([replyData, item])
+                                          )
+                                        }
+                                      >
+                                        삭제
+                                      </button>
+                                    </div>
                                   </div>
                                 );
                               })}
                             </div>
                             {openEditReply ? (
-                              <div>
-                                댓글 수정 :{" "}
+                              <div
+                                style={{
+                                  margin: "8px 0 8px 0",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  width: "100%",
+                                }}
+                              >
                                 <input
-                                  style={{ width: "70%" }}
+                                  style={{
+                                    width: "70%",
+                                    backgroundColor: "#d3e1ff",
+                                    marginRight: "10px",
+                                  }}
                                   value={reply}
+                                  placeholder={"댓글을 수정하세요!"}
                                   onChange={(e) => {
                                     setReply(e.target.value);
                                   }}
                                 />
                                 <button
                                   onClick={() => {
-                                    dispatch(__EditReply([replyData, item]));
+                                    dispatch(
+                                      __EditReply([
+                                        { ...replyData, replyId: ReplyId },
+                                        item,
+                                      ])
+                                    );
+                                    dispatch(editReplyHandler());
+                                    setReply("");
                                   }}
                                 >
                                   수정완료
                                 </button>
                               </div>
                             ) : (
-                              <div>
-                                댓글 입력 :{" "}
+                              <div
+                                style={{
+                                  margin: "8px 0 8px 0",
+                                  display: "flex",
+                                  alignItems: "center",
+                                }}
+                              >
+                                <span style={{ marginRight: "10px" }}>
+                                  댓글 입력
+                                </span>
                                 <input
                                   style={{ width: "70%" }}
                                   value={reply}
+                                  placeholder={"댓글을 입력하세요!"}
                                   onChange={(e) => {
                                     setReply(e.target.value);
                                   }}
@@ -197,6 +253,7 @@ function MatchPage() {
                                 <button
                                   onClick={() => {
                                     dispatch(__addReply(replyData));
+                                    setReply("");
                                   }}
                                 >
                                   완료
@@ -218,7 +275,7 @@ function MatchPage() {
                     display: "flex",
                     alignItems: "center",
                     gap: "10px",
-                    marginRight: "20px",
+                    marginRight: "10px",
                   }}
                 >
                   <ReplyButton
@@ -230,7 +287,7 @@ function MatchPage() {
                       );
                     }}
                   >
-                    댓글
+                    <AiOutlineComment />
                   </ReplyButton>
                   <EditButton
                     onClick={() => {
@@ -309,8 +366,8 @@ const Matchpagebackground = styled.div`
   height: 100%;
 `;
 const EditButton = styled.div`
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   background-color: #c9dcfe;
   border-radius: 10px;
   display: flex;

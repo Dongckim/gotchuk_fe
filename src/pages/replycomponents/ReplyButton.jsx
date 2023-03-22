@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 const ReplyButton = styled.div`
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   background-color: #c9dcfe;
   border-radius: 10px;
   display: flex;
