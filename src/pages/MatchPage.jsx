@@ -182,11 +182,12 @@ function MatchPage() {
                                           cursor: "pointer",
                                           fontWeight: "900",
                                         }}
-                                        onClick={() =>
+                                        onClick={() => {
                                           dispatch(
                                             __DeleteReply([replyData, item])
-                                          )
-                                        }
+                                          );
+                                          dispatch(editReplyHandler());
+                                        }}
                                       >
                                         삭제
                                       </button>

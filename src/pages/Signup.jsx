@@ -108,7 +108,7 @@ function Signup() {
               value={user.username}
               required
               onChange={(e) => setUser({ ...user, username: e.target.value })}
-              placeholder=" 8자 이상 15미만으로 입력해주세요"
+              placeholder="알파벳 소문자/슷지0~9/아이디 4~10자리"
             />
           </BoxStyle>
           <BoxStyle>
@@ -118,7 +118,7 @@ function Signup() {
               value={user.password}
               required
               onChange={(e) => setUser({ ...user, password: e.target.value })}
-              placeholder=" 8자 이상 15미만으로 입력해주세요"
+              placeholder="알파벳 대소문자 숫자 특수문자 가능/pW 8-15자리"
             />
           </BoxStyle>
           <BoxStyle>
