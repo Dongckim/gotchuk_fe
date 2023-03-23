@@ -48,7 +48,6 @@ export const __getReply = createAsyncThunk(
 export const __DeleteReply = createAsyncThunk(
     "DeleteReply",
     async(payload, thunk) => {
-        console.log("payload" , payload)
         try{const token = getCookie('token')
             const response = await api.delete(`/api/games/${payload[0].param}/comments/${payload[0].commentId}/reply/${payload[1].id}`,{
                 headers : {
